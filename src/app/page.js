@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Zap, Shield, Globe } from "lucide-react";
+import { EmailCaptureForm } from "@/components/EmailCaptureForm";
 
 export default function LandingPage() {
   return (
@@ -119,17 +120,13 @@ export default function LandingPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto bg-primary-600 rounded-3xl p-12 text-center relative overflow-hidden">
+      <section className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="bg-primary-600 rounded-3xl p-12 lg:p-16 text-center relative overflow-hidden flex flex-col items-center">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 relative z-10">Ready to make an impact?</h2>
           <p className="text-primary-100 mb-10 text-lg max-w-xl mx-auto relative z-10">Join the waitlist today to secure your spot for the launch.</p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto relative z-10">
-            {/* We will replace this with the Supabase Email Capture Component */}
-            <input type="email" placeholder="Enter your email" className="flex-1 px-6 py-4 rounded-full bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/50" />
-            <button className="px-8 py-4 bg-white text-primary-600 font-bold rounded-full hover:bg-neutral-100 transition-colors whitespace-nowrap">
-              Join Waitlist
-            </button>
+          <div className="w-full relative z-10">
+            <EmailCaptureForm source="landing_page_footer" />
           </div>
         </div>
       </section>
