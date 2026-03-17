@@ -3,7 +3,7 @@
 import { createClient } from "@supabase/supabase-js";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_dummy');
 
 export async function captureEmail(formData) {
   const email = formData.get("email")?.toString();
@@ -13,6 +13,10 @@ export async function captureEmail(formData) {
 
   if (!email) {
     return { error: "Email is required" };
+  }
+
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return { error: "Server Configuration Error: Missing Supabase Admin Keys." };
   }
 
   // Use the Service Role Key to bypass RLS policies safely on the server
@@ -49,6 +53,10 @@ export async function captureEmail(formData) {
 }
 
 export async function createStripeSession() {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return { error: "Server Configuration Error: Missing Stripe Secret Key." };
+  }
+
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
