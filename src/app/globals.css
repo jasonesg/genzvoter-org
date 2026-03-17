@@ -1,11 +1,8 @@
 @import "tailwindcss";
-<<<<<<< HEAD
-=======
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
->>>>>>> master
 
 @theme {
   --color-background: #000000;
@@ -19,11 +16,6 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-<<<<<<< HEAD
-    @apply antialiased selection:bg-primary-500/30 selection:text-primary-500 scroll-smooth;
-  }
-}
-=======
     @apply antialiased selection:bg-primary-500/30 selection:text-primary-500 scroll-smooth bg-background text-foreground;
   }
   * {
@@ -144,4 +136,3 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
->>>>>>> master
