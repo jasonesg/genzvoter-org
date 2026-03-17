@@ -24,7 +24,11 @@ export function CheckoutButton() {
     <button 
       onClick={handleCheckout}
       disabled={loading}
+<<<<<<< HEAD
       className="w-full py-3 rounded-full bg-primary-600 hover:bg-primary-500 transition-colors font-medium text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] flex justify-center items-center h-12 disabled:opacity-70"
+=======
+      className="w-full py-3 rounded bg-primary-600 hover:bg-primary-500 transition-colors font-medium text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] flex justify-center items-center h-12 disabled:opacity-70"
+>>>>>>> master
     >
       {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Subscribe Now"}
     </button>
