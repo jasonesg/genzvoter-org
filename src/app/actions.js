@@ -1,6 +1,6 @@
 "use server";
 
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
 
 export async function captureEmail(formData) {
   const email = formData.get("email")?.toString();
@@ -12,8 +12,14 @@ export async function captureEmail(formData) {
     return { error: "Email is required" };
   }
 
+  // Use the Service Role Key to bypass RLS policies safely on the server
+  const supabaseAdmin = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+  );
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("email_captures")
       .insert([
         {
@@ -25,7 +31,6 @@ export async function captureEmail(formData) {
       ]);
 
     if (error) {
-      // Handle unique constraint violation gracefully
       if (error.code === '23505') {
          return { success: true, message: "You're already on the list!" };
       }
