@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Zap, Shield, Globe } from "lucide-react";
 import { EmailCaptureForm } from "@/components/EmailCaptureForm";
+import { CheckoutButton } from "@/components/CheckoutButton";
 
 export default function LandingPage() {
   return (
@@ -112,9 +113,7 @@ export default function LandingPage() {
                 </li>
               ))}
             </ul>
-            <button className="w-full py-3 rounded-full bg-primary-600 hover:bg-primary-500 transition-colors font-medium text-white shadow-[0_0_20px_rgba(37,99,235,0.3)]">
-              Subscribe Now
-            </button>
+            <CheckoutButton />
           </div>
         </div>
       </section>
