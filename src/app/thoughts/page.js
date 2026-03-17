@@ -7,8 +7,8 @@ function formatDate(iso) {
 }
 
 export const metadata = {
-  title: "Thoughts | GenZVoter",
-  description: "Writing and updates.",
+  title: "News | GenZVoter",
+  description: "Updates and announcements.",
 };
 
 export default function ThoughtsIndexPage() {
@@ -16,8 +16,8 @@ export default function ThoughtsIndexPage() {
     <div className="px-6 md:px-12 py-20">
       <div className="max-w-3xl mx-auto">
         <header className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">Thoughts</h1>
-          <p className="text-neutral-400 mt-2">Notes, ideas, and updates.</p>
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">News</h1>
+          <p className="text-neutral-400 mt-2">Latest updates and announcements.</p>
         </header>
 
         <ul className="divide-y divide-white/10">

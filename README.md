@@ -1,1 +1,1 @@
-# GenZVoter.org
+# genZvoter.org

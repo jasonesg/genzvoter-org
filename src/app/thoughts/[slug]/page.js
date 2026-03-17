@@ -11,7 +11,7 @@ export function generateMetadata({ params }) {
   const post = thoughts.find((p) => p.slug === params.slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Thoughts`,
+    title: `${post.title} | News`,
     description: post.excerpt,
   };
 }
@@ -28,7 +28,7 @@ export default function ThoughtPage({ params }) {
             href="/thoughts"
             className="text-sm text-neutral-400 hover:text-white transition-colors"
           >
-            ← Thoughts
+            ← News
           </Link>
           <h1 className="mt-4 text-3xl md:text-5xl font-semibold tracking-tight">{post.title}</h1>
           <div className="mt-3 text-sm text-neutral-500 tabular-nums">{formatDateLong(post.date)}</div>
