@@ -46,12 +46,9 @@ export function Header() {
             GenZVoter
           </Link>
           <div className="flex gap-6 items-center flex-row">
-            <a href="/#features" className="text-sm text-neutral-400 hover:text-white transition-colors">
-              About
-            </a>
-            <a href="/#pricing" className="text-sm text-neutral-400 hover:text-white transition-colors">
+            <Link href="/involvement" className="text-sm text-neutral-400 hover:text-white transition-colors">
               Involvement
-            </a>
+            </Link>
             <Link href="/thoughts" className="text-sm text-neutral-400 hover:text-white transition-colors">
               News
             </Link>

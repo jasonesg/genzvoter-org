@@ -8,6 +8,9 @@ const nextConfig = {
   turbopack: {
     root: dirname,
   },
+  compiler: {
+    styledComponents: true
+  }
 };
 
 export default nextConfig;
