@@ -1,67 +1,92 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+
+const NAV_LINKS = [
+  { href: "/pricing", label: "Pricing" },
+  { href: "/thoughts", label: "News" },
+];
 
 export function Header() {
-  const [visible, setVisible] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    // On non-landing routes, keep the nav always visible.
-    if (pathname !== "/") {
-      setVisible(true);
-      return;
-    }
-
-    const heroThreshold = () => window.innerHeight * 0.6;
-
-    const handleScroll = () => {
-      const y = window.scrollY || window.pageYOffset;
-      // Hide nav while user is in the top ~60% of the first viewport (ASCII hero),
-      // show it once they've scrolled past that region.
-      setVisible(y >= heroThreshold());
-    };
-
-    // Initialize on mount
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
-
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.nav
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed top-0 inset-x-0 h-16 border-b border-white/10 bg-black/50 backdrop-blur-md z-50 flex items-center justify-between px-6 md:px-12"
-        >
-          <Link href="/" className="font-bold text-xl tracking-tighter text-white">
-            GenZVoter
-          </Link>
-          <div className="flex gap-6 items-center flex-row">
-            <Link href="/involvement" className="text-sm text-neutral-400 hover:text-white transition-colors">
-              Involvement
-            </Link>
-            <Link href="/thoughts" className="text-sm text-neutral-400 hover:text-white transition-colors">
-              News
-            </Link>
-            <a
-              href="/#pricing"
-              className="text-sm font-medium bg-white text-black px-4 py-2 rounded hover:bg-neutral-200 transition-colors"
+    <nav className="sticky top-0 z-50 bg-[#FBF4E8]/90 backdrop-blur-md border-b border-[#E2D5C3]">
+      <div className="h-16 flex items-center justify-between px-6 max-w-[1200px] mx-auto w-full">
+        <Link href="/" className="font-serif font-bold text-xl text-[#1C1410] tracking-tight">
+          Houdys
+        </Link>
+
+        {/* Desktop nav */}
+        <div className="hidden md:flex gap-7 items-center">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`text-sm transition-colors ${
+                pathname === href
+                  ? "text-[#1C1410] font-medium"
+                  : "text-[#7A6555] hover:text-[#1C1410]"
+              }`}
             >
-              Vote Waitlist
-            </a>
-          </div>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+              {label}
+            </Link>
+          ))}
+          <Link
+            href="/signup"
+            className="text-sm font-semibold bg-[#1C1410] text-[#FBF4E8] px-5 py-2 rounded-full hover:bg-[#2E2018] transition-colors"
+          >
+            Sign up
+          </Link>
+        </div>
+
+        {/* Mobile burger */}
+        <button
+          onClick={() => setMenuOpen((o) => !o)}
+          className="md:hidden p-2 text-[#7A6555] hover:text-[#1C1410] transition-colors"
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden overflow-hidden border-t border-[#E2D5C3] bg-[#FBF4E8]"
+          >
+            <div className="flex flex-col px-6 py-5 gap-5">
+              {NAV_LINKS.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm text-[#7A6555] hover:text-[#1C1410] transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
+              <Link
+                href="/signup"
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-semibold bg-[#1C1410] text-[#FBF4E8] px-5 py-2.5 rounded-full text-center hover:bg-[#2E2018] transition-colors"
+              >
+                Sign up
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   );
 }
-
