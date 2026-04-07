@@ -40,7 +40,7 @@ function PropertyCard({ property }) {
             </span>
           )}
           {property.openHouse && (
-            <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#C4602A] rounded-full text-xs font-semibold text-white">
+            <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#27BE5D] rounded-full text-xs font-semibold text-white">
               Open: {property.openHouse}
             </span>
           )}
@@ -48,7 +48,7 @@ function PropertyCard({ property }) {
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSaved(s => !s); }}
             className="absolute top-3 right-3 p-1.5 rounded-full bg-white/80 hover:bg-white transition-colors shadow-sm"
           >
-            <Heart className={`w-4 h-4 ${saved ? "fill-[#C4602A] text-[#C4602A]" : "text-[#7A6555]"}`} />
+            <Heart className={`w-4 h-4 ${saved ? "fill-[#27BE5D] text-[#27BE5D]" : "text-[#7A6555]"}`} />
           </button>
         </div>
 
@@ -82,14 +82,14 @@ function SeeAllCard({ slug, count, title }) {
       className="shrink-0 w-72 group"
     >
       <div
-        className="flex flex-col items-center justify-center gap-4 h-full rounded-2xl border-2 border-dashed border-[#D4C5B0] hover:border-[#C4602A] hover:bg-[#FFF5F0] transition-all duration-200 cursor-pointer"
+        className="flex flex-col items-center justify-center gap-4 h-full rounded-2xl border-2 border-dashed border-[#D4C5B0] hover:border-[#27BE5D] hover:bg-[#F0FBF4] transition-all duration-200 cursor-pointer"
         style={{ minHeight: 260 }}
       >
-        <div className="w-14 h-14 rounded-full bg-[#1C1410] flex items-center justify-center group-hover:bg-[#C4602A] transition-colors">
+        <div className="w-14 h-14 rounded-full bg-[#1C1410] flex items-center justify-center group-hover:bg-[#27BE5D] transition-colors">
           <ChevronRight className="w-6 h-6 text-[#FBF4E8]" />
         </div>
         <div className="text-center px-6">
-          <p className="text-sm font-bold text-[#1C1410] group-hover:text-[#C4602A] transition-colors">
+          <p className="text-sm font-bold text-[#1C1410] group-hover:text-[#27BE5D] transition-colors">
             Show all {count} homes
           </p>
           <p className="text-xs text-[#7A6555] mt-1 leading-snug">{title}</p>
@@ -198,7 +198,7 @@ function MapView({ initialZip = "" }) {
           <button
             type="submit"
             disabled={searching}
-            className="shrink-0 m-1.5 px-4 py-2 bg-[#C4602A] text-white text-sm font-medium rounded-full hover:bg-[#A84E20] transition-colors disabled:opacity-60"
+            className="shrink-0 m-1.5 px-4 py-2 bg-[#27BE5D] text-white text-sm font-medium rounded-full hover:bg-[#297A46] transition-colors disabled:opacity-60"
           >
             {searching ? "Searching…" : "Search"}
           </button>
@@ -228,7 +228,7 @@ function MapView({ initialZip = "" }) {
         </div>
       ) : (
         <div className="rounded-2xl border border-[#E2D5C3] bg-[#F5EDD8] flex flex-col items-center justify-center gap-3 mb-8" style={{ height: 360 }}>
-          <MapPin className="w-10 h-10 text-[#C4602A] opacity-50" />
+          <MapPin className="w-10 h-10 text-[#27BE5D] opacity-50" />
           <p className="text-sm text-[#7A6555]">Enter a ZIP code above to load the map</p>
         </div>
       )}
@@ -247,7 +247,7 @@ function MapView({ initialZip = "" }) {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 {p.openHouse && (
-                  <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#C4602A] rounded-full text-xs font-semibold text-white">
+                  <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#27BE5D] rounded-full text-xs font-semibold text-white">
                     Open: {p.openHouse}
                   </span>
                 )}
@@ -325,7 +325,9 @@ function DashboardInner({ user, onSignOut }) {
         style={{ backgroundColor: "#F5EDD8" }}
       >
         <div className="px-5 py-5 border-b border-[#E2D5C3] flex items-center justify-between">
-          <Link href="/" className="font-serif font-bold text-xl text-[#1C1410]">Houdys</Link>
+          <Link href="/dashboard">
+            <img src="/logo.png" alt="Houdys" className="h-8 w-auto" />
+          </Link>
           <button className="md:hidden p-1 rounded-lg hover:bg-[#E2D5C3] transition-colors" onClick={() => setSidebarOpen(false)}>
             <X className="w-4 h-4 text-[#7A6555]" />
           </button>
@@ -413,7 +415,7 @@ function DashboardInner({ user, onSignOut }) {
               <div className="px-4 py-2 hidden lg:block">
                 <p className="text-sm text-[#7A6555]">Any beds</p>
               </div>
-              <button className="shrink-0 m-1.5 p-2.5 bg-[#C4602A] rounded-full hover:bg-[#A84E20] transition-colors">
+              <button className="shrink-0 m-1.5 p-2.5 bg-[#27BE5D] rounded-full hover:bg-[#297A46] transition-colors">
                 <Search className="w-4 h-4 text-white" />
               </button>
             </div>
@@ -432,7 +434,7 @@ function DashboardInner({ user, onSignOut }) {
             <div className="px-6 py-8">
               {filteredSections.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-24 gap-4">
-                  <Search className="w-12 h-12 text-[#C4602A] opacity-30" />
+                  <Search className="w-12 h-12 text-[#27BE5D] opacity-30" />
                   <p className="text-lg font-semibold text-[#1C1410]">No listings found</p>
                   <p className="text-sm text-[#7A6555]">
                     Try adjusting your search or switching to a different tab.
@@ -474,7 +476,7 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "#FBF4E8" }}>
-        <div className="w-6 h-6 rounded-full border-2 border-[#C4602A] border-t-transparent animate-spin" />
+        <div className="w-6 h-6 rounded-full border-2 border-[#27BE5D] border-t-transparent animate-spin" />
       </div>
     );
   }

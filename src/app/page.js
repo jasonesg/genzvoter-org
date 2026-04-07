@@ -72,7 +72,7 @@ export default function LandingPage() {
         >
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-[#1C1410] leading-tight mb-6">
             Find your next home,<br />
-            <span className="text-[#C4602A]">on your terms.</span>
+            <span className="text-[#27BE5D]">on your terms.</span>
           </h1>
           <p className="text-lg text-[#7A6555] max-w-2xl mx-auto">
             Houdys connects shoppers and brokers in a single, beautifully simple platform. Browse listings, message agents, and move faster.
@@ -126,12 +126,12 @@ export default function LandingPage() {
             <ul className="space-y-3 mb-8">
               {SHOPPER_FEATURES.map((f) => (
                 <li key={f} className="flex items-center gap-3 text-sm text-[#FBF4E8]/80">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C4602A] shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#27BE5D] shrink-0" />
                   {f}
                 </li>
               ))}
             </ul>
-            <Link href="/signup" className="inline-flex items-center gap-2 text-sm font-semibold text-[#FBF4E8] bg-[#C4602A] px-5 py-2.5 rounded-full hover:bg-[#A84E20] transition-colors">
+            <Link href="/signup" className="inline-flex items-center gap-2 text-sm font-semibold text-[#FBF4E8] bg-[#27BE5D] px-5 py-2.5 rounded-full hover:bg-[#297A46] transition-colors">
               Start browsing <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
@@ -152,7 +152,7 @@ export default function LandingPage() {
             <ul className="space-y-3 mb-8">
               {BROKER_FEATURES.map((f) => (
                 <li key={f} className="flex items-center gap-3 text-sm text-[#4A3728]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C4602A] shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#27BE5D] shrink-0" />
                   {f}
                 </li>
               ))}
@@ -171,7 +171,7 @@ export default function LandingPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-3xl bg-[#C4602A] px-10 py-16 text-center"
+          className="rounded-3xl bg-[#27BE5D] px-10 py-16 text-center"
         >
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#FBF4E8] mb-4">Ready to find your<br />next home?</h2>
           <p className="text-[#FBF4E8]/70 mb-8 max-w-md mx-auto">Join Houdys today and start browsing thousands of properties across the country.</p>

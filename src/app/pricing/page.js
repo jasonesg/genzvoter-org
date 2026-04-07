@@ -80,7 +80,7 @@ export default function PricingPage() {
               }`}
             >
               {plan.highlight && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#C4602A] text-white text-xs font-semibold rounded-full">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#27BE5D] text-white text-xs font-semibold rounded-full">
                   Most popular
                 </div>
               )}
@@ -101,7 +101,7 @@ export default function PricingPage() {
               <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm">
-                    <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${plan.highlight ? "text-[#C4602A]" : "text-[#C4602A]"}`} />
+                    <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${plan.highlight ? "text-[#27BE5D]" : "text-[#27BE5D]"}`} />
                     <span className={plan.highlight ? "text-[#FBF4E8]/80" : "text-[#4A3728]"}>{f}</span>
                   </li>
                 ))}
@@ -111,7 +111,7 @@ export default function PricingPage() {
                 href={plan.href}
                 className={`w-full py-2.5 rounded-full text-sm font-semibold text-center transition-colors ${
                   plan.highlight
-                    ? "bg-[#C4602A] text-white hover:bg-[#A84E20]"
+                    ? "bg-[#27BE5D] text-white hover:bg-[#297A46]"
                     : "bg-[#1C1410] text-[#FBF4E8] hover:bg-[#2E2018]"
                 }`}
               >
