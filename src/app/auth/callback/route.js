@@ -35,13 +35,18 @@ export async function GET(request) {
   }
 
   // Returning user with a completed profile → dashboard, otherwise onboarding
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name")
-    .eq("id", sessionData.user.id)
-    .single();
-
-  const destination = profile?.full_name ? "/dashboard" : "/onboarding";
+  // Wrapped in try/catch so a missing profiles table never crashes the callback
+  let destination = "/onboarding";
+  try {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("full_name")
+      .eq("id", sessionData.user.id)
+      .single();
+    if (profile?.full_name) destination = "/dashboard";
+  } catch (_) {
+    // profiles table missing or query failed — safe fallback to onboarding
+  }
 
   // Build the final redirect and attach the session cookies to it
   const response = NextResponse.redirect(`${origin}${destination}`);
