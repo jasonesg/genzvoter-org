@@ -1,10 +1,10 @@
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Alegreya } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { ClientLayoutWrapper } from "@/components/ClientLayoutWrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const alegreya = Alegreya({ subsets: ["latin"], variable: "--font-playfair", weight: ["400", "500", "700", "800"] });
 
 export const metadata = {
   title: "Houdys",
@@ -16,7 +16,7 @@ const GA_ID = "G-0M0FBQBZR9";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} ${inter.className}`}>
+      <body className={`${inter.variable} ${alegreya.variable} ${inter.className}`}>
         {/* Google tag (gtag.js) */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

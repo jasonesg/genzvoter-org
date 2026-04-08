@@ -21,7 +21,7 @@ function PropertyCard({ property }) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
           {property.openHouse && (
-            <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#C4602A] rounded-full text-xs font-semibold text-white">
+            <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#27BE5D] rounded-full text-xs font-semibold text-white">
               Open: {property.openHouse}
             </span>
           )}
@@ -34,7 +34,7 @@ function PropertyCard({ property }) {
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSaved(s => !s); }}
             className="absolute top-3 right-3 p-1.5 rounded-full bg-white/80 hover:bg-white transition-colors shadow-sm"
           >
-            <Heart className={`w-4 h-4 ${saved ? "fill-[#C4602A] text-[#C4602A]" : "text-[#7A6555]"}`} />
+            <Heart className={`w-4 h-4 ${saved ? "fill-[#27BE5D] text-[#27BE5D]" : "text-[#7A6555]"}`} />
           </button>
         </div>
         <div className="px-4 py-3">
@@ -69,7 +69,7 @@ export default function BrowseSectionPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ backgroundColor: "#FBF4E8" }}>
         <p className="text-[#7A6555]">Section not found.</p>
-        <Link href="/dashboard" className="text-sm font-medium text-[#C4602A] hover:underline">Back to dashboard</Link>
+        <Link href="/dashboard" className="text-sm font-medium text-[#27BE5D] hover:underline">Back to dashboard</Link>
       </div>
     );
   }
@@ -139,7 +139,7 @@ export default function BrowseSectionPage() {
           <div className="flex flex-col items-center justify-center py-24 gap-3">
             <p className="text-2xl">🏠</p>
             <p className="text-[#4A3728] font-medium">No listings match this filter</p>
-            <button onClick={() => setActiveFilter("All")} className="text-sm text-[#C4602A] hover:underline">
+            <button onClick={() => setActiveFilter("All")} className="text-sm text-[#27BE5D] hover:underline">
               Clear filter
             </button>
           </div>

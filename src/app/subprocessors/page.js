@@ -54,7 +54,7 @@ export default function SubprocessorsPage() {
                   <td className="px-5 py-4 text-[#7A6555]">{sp.location}</td>
                   <td className="px-5 py-4">
                     <a href={sp.website} target="_blank" rel="noopener noreferrer"
-                      className="text-[#C4602A] hover:underline transition-colors">
+                      className="text-[#27BE5D] hover:underline transition-colors">
                       {sp.website.replace("https://", "")}
                     </a>
                   </td>
@@ -72,14 +72,14 @@ export default function SubprocessorsPage() {
               <p className="text-sm text-[#4A3728]">{sp.purpose}</p>
               <p className="text-sm text-[#7A6555]">{sp.location}</p>
               <a href={sp.website} target="_blank" rel="noopener noreferrer"
-                className="text-sm text-[#C4602A] hover:underline block">{sp.website.replace("https://", "")}</a>
+                className="text-sm text-[#27BE5D] hover:underline block">{sp.website.replace("https://", "")}</a>
             </div>
           ))}
         </div>
 
         <p className="mt-10 text-sm text-[#7A6555]">
           Questions about data handling?{" "}
-          <a href="mailto:privacy@houdys.com" className="text-[#C4602A] hover:underline">
+          <a href="mailto:privacy@houdys.com" className="text-[#27BE5D] hover:underline">
             privacy@houdys.com
           </a>
         </p>

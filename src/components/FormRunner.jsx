@@ -53,7 +53,7 @@ function FloatingOrbs() {
             width: o.size, height: o.size,
             left: o.left, top: o.top,
             background:
-              "radial-gradient(circle, rgba(196,96,42,0.11) 0%, transparent 68%)",
+              "radial-gradient(circle, rgba(39,190,93,0.11) 0%, transparent 68%)",
           }}
           animate={{ x: [0, 22, -14, 0], y: [0, -22, 12, 0], scale: [1, 1.04, 0.97, 1] }}
           transition={{ duration: o.dur, repeat: Infinity, ease: "easeInOut", delay: o.delay }}
@@ -74,7 +74,7 @@ function ConfettiBurst() {
     return {
       tx: Math.cos(rad) * dist,
       ty: Math.sin(rad) * dist,
-      color: ["#C4602A","#F5EDD8","#1C1410","#E2D5C3","#D4A574"][i % 5],
+      color: ["#27BE5D","#F5EDD8","#1C1410","#E2D5C3","#D4A574"][i % 5],
       size: 5 + (i % 3) * 2,
     };
   });
@@ -113,14 +113,14 @@ function AnimatedTextarea({ value, onChange, onKeyDown, placeholder, rows = 4, a
         className="
           w-full resize-none bg-transparent border-none focus:outline-none
           text-xl text-[#1C1410] placeholder-[#D1C9BF]
-          py-3 pb-4 leading-relaxed caret-[#C4602A]
+          py-3 pb-4 leading-relaxed caret-[#27BE5D]
         "
       />
       {/* Track */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-[#E8E0D5]" />
       {/* Animated fill */}
       <motion.div
-        className="absolute bottom-0 left-0 h-[2px] bg-[#C4602A] rounded-full origin-left"
+        className="absolute bottom-0 left-0 h-[2px] bg-[#27BE5D] rounded-full origin-left"
         animate={{ scaleX: focused ? 1 : 0, opacity: focused ? 1 : 0.4 }}
         initial={{ scaleX: 0, opacity: 0 }}
         transition={{ duration: 0.35, ease: EASE }}
@@ -146,13 +146,13 @@ function ContinueBtn({ onClick, show, label = "OK ↵", loading = false }) {
           <motion.button
             onClick={onClick}
             disabled={loading}
-            whileHover={{ scale: 1.04, y: -2, boxShadow: "0 10px 28px rgba(196,96,42,0.28)" }}
+            whileHover={{ scale: 1.04, y: -2, boxShadow: "0 10px 28px rgba(39,190,93,0.28)" }}
             whileTap={{ scale: 0.96 }}
             transition={SPRING}
             className="
-              px-7 py-3 rounded-xl bg-[#C4602A] text-white
+              px-7 py-3 rounded-xl bg-[#27BE5D] text-white
               text-sm font-bold uppercase tracking-widest
-              shadow-md shadow-[#C4602A]/20
+              shadow-md shadow-[#27BE5D]/20
               disabled:opacity-70
             "
           >
@@ -200,7 +200,7 @@ function WelcomeStep({ step, onNext }) {
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F5EDD8] border border-[#E2D5C3] text-xs text-[#7A6555] font-medium"
           >
             <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-[#C4602A]"
+              className="w-1.5 h-1.5 rounded-full bg-[#27BE5D]"
               animate={{ scale: [1, 1.6, 1] }}
               transition={{ duration: 1.8, repeat: Infinity }}
             />
@@ -225,13 +225,13 @@ function WelcomeStep({ step, onNext }) {
         <motion.div variants={fadeUp}>
           <motion.button
             onClick={onNext}
-            whileHover={{ scale: 1.05, y: -2, boxShadow: "0 16px 36px rgba(196,96,42,0.30)" }}
+            whileHover={{ scale: 1.05, y: -2, boxShadow: "0 16px 36px rgba(39,190,93,0.30)" }}
             whileTap={{ scale: 0.97 }}
             transition={SPRING}
             className="
-              mt-1 px-10 py-4 rounded-2xl bg-[#C4602A] text-white
+              mt-1 px-10 py-4 rounded-2xl bg-[#27BE5D] text-white
               text-base font-bold tracking-wide
-              shadow-lg shadow-[#C4602A]/25
+              shadow-lg shadow-[#27BE5D]/25
             "
           >
             {step.cta}
@@ -286,7 +286,7 @@ function LongTextStep({ step, value, onChange, onNext, canContinue }) {
           {step.number}
         </motion.span>
         <motion.span
-          className="text-xs font-semibold text-[#C4602A] uppercase tracking-widest"
+          className="text-xs font-semibold text-[#27BE5D] uppercase tracking-widest"
           initial={{ opacity: 0, x: -6 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3, delay: 0.15 }}
@@ -357,7 +357,7 @@ function ChoiceWithTextStep({ step, choiceValue, onChoiceChange, onNext }) {
         >
           {step.number}
         </motion.span>
-        <span className="text-xs font-semibold text-[#C4602A] uppercase tracking-widest">→</span>
+        <span className="text-xs font-semibold text-[#27BE5D] uppercase tracking-widest">→</span>
       </motion.div>
 
       <motion.h2
@@ -389,7 +389,7 @@ function ChoiceWithTextStep({ step, choiceValue, onChoiceChange, onNext }) {
                 relative flex items-center gap-3 px-5 py-4 rounded-2xl border-2
                 font-semibold text-sm select-none
                 ${selected
-                  ? "border-[#C4602A] bg-[#FFF5F0] text-[#C4602A]"
+                  ? "border-[#27BE5D] bg-[#F0FBF4] text-[#27BE5D]"
                   : "border-[#E8E0D5] bg-white text-[#4A3728]"}
               `}
             >
@@ -402,7 +402,7 @@ function ChoiceWithTextStep({ step, choiceValue, onChoiceChange, onNext }) {
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0, opacity: 0 }}
                     transition={SPRING}
-                    className="ml-1 flex items-center justify-center w-4 h-4 rounded-full bg-[#C4602A]"
+                    className="ml-1 flex items-center justify-center w-4 h-4 rounded-full bg-[#27BE5D]"
                   >
                     <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
                   </motion.span>
@@ -464,7 +464,7 @@ function SummaryContactStep({
               transition={{ duration: 0.2 }}
               className="rounded-2xl bg-[#F9F5EE] border border-[#E8E0D5] px-5 py-4 cursor-default"
             >
-              <p className="text-[10px] font-bold text-[#C4602A] uppercase tracking-widest mb-1.5">
+              <p className="text-[10px] font-bold text-[#27BE5D] uppercase tracking-widest mb-1.5">
                 {s.number} — {s.question?.slice(0, 58)}{s.question?.length > 58 ? "…" : ""}
               </p>
               <p className="text-sm text-[#1C1410] leading-relaxed whitespace-pre-wrap">{answer}</p>
@@ -490,9 +490,9 @@ function SummaryContactStep({
             onKeyDown={i === 1 ? (e) => { if (e.key === "Enter" && canSubmit) onSubmit(); } : undefined}
             className="
               w-full px-5 py-4 rounded-2xl border-2 border-[#E8E0D5]
-              focus:border-[#C4602A] focus:outline-none
+              focus:border-[#27BE5D] focus:outline-none
               text-base text-[#1C1410] placeholder-[#C4C0B8]
-              bg-white transition-colors duration-200 caret-[#C4602A]
+              bg-white transition-colors duration-200 caret-[#27BE5D]
             "
           />
         ))}
@@ -766,7 +766,7 @@ export function FormRunner({ config }) {
         {showChrome && (
           <div className="h-[3px] bg-gray-100 w-full">
             <motion.div
-              className="h-full bg-[#C4602A]"
+              className="h-full bg-[#27BE5D]"
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5, ease: EASE }}
             />

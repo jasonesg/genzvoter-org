@@ -26,7 +26,7 @@ export default function ListingPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ backgroundColor: "#FBF4E8" }}>
         <p className="text-[#7A6555]">Listing not found.</p>
-        <Link href="/dashboard" className="text-sm font-medium text-[#C4602A] hover:underline">Back to dashboard</Link>
+        <Link href="/dashboard" className="text-sm font-medium text-[#27BE5D] hover:underline">Back to dashboard</Link>
       </div>
     );
   }
@@ -66,7 +66,7 @@ export default function ListingPage() {
               onClick={() => setSaved(s => !s)}
               className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E2D5C3] bg-white text-sm font-medium text-[#4A3728] hover:bg-[#F5EDD8] transition-colors"
             >
-              <Heart className={`w-3.5 h-3.5 ${saved ? "fill-[#C4602A] text-[#C4602A]" : ""}`} />
+              <Heart className={`w-3.5 h-3.5 ${saved ? "fill-[#27BE5D] text-[#27BE5D]" : ""}`} />
               {saved ? "Saved" : "Save"}
             </button>
           </div>
@@ -87,7 +87,7 @@ export default function ListingPage() {
                 className="w-full h-full object-cover"
               />
               {property.openHouse && (
-                <span className="absolute top-4 left-4 px-3 py-1.5 bg-[#C4602A] rounded-full text-sm font-semibold text-white">
+                <span className="absolute top-4 left-4 px-3 py-1.5 bg-[#27BE5D] rounded-full text-sm font-semibold text-white">
                   Open: {property.openHouse}
                 </span>
               )}
@@ -121,7 +121,7 @@ export default function ListingPage() {
                   key={i}
                   onClick={() => setImgIdx(i)}
                   className={`shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-colors ${
-                    i === imgIdx ? "border-[#C4602A]" : "border-transparent"
+                    i === imgIdx ? "border-[#27BE5D]" : "border-transparent"
                   }`}
                 >
                   <img src={src} alt="" className="w-full h-full object-cover" />
@@ -175,7 +175,7 @@ export default function ListingPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {property.features.map(f => (
                   <div key={f} className="flex items-center gap-2.5 p-3 bg-white rounded-xl border border-[#E2D5C3]">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#C4602A] shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#27BE5D] shrink-0" />
                     <p className="text-sm text-[#4A3728]">{f}</p>
                   </div>
                 ))}
@@ -239,7 +239,7 @@ export default function ListingPage() {
                           step={1}
                           value={downPct}
                           onChange={e => setDownPct(Number(e.target.value))}
-                          className="w-full accent-[#C4602A]"
+                          className="w-full accent-[#27BE5D]"
                         />
                         <div className="flex justify-between text-xs text-[#B0A090] mt-1">
                           <span>3%</span>
@@ -258,7 +258,7 @@ export default function ListingPage() {
                             step={0.1}
                             value={rate}
                             onChange={e => setRate(Number(e.target.value))}
-                            className="w-24 px-3 py-2 rounded-xl border border-[#E2D5C3] bg-[#F5EDD8] text-sm text-[#1C1410] font-semibold focus:outline-none focus:border-[#C4602A]"
+                            className="w-24 px-3 py-2 rounded-xl border border-[#E2D5C3] bg-[#F5EDD8] text-sm text-[#1C1410] font-semibold focus:outline-none focus:border-[#27BE5D]"
                           />
                           <span className="text-sm text-[#7A6555]">% per year</span>
                         </div>
@@ -325,7 +325,7 @@ export default function ListingPage() {
                   <p className="text-xs text-[#7A6555] mb-0.5">Est. monthly payment</p>
                   <p className="text-xl font-bold text-[#1C1410]">{formatCurrency(monthlyPayment)}<span className="text-sm font-normal text-[#7A6555]">/mo</span></p>
                   <p className="text-xs text-[#B0A090] mt-1">{downPct}% down · {rate}% · {term}yr fixed</p>
-                  <a href="#mortgage-calculator" className="text-xs text-[#C4602A] font-medium hover:underline mt-1.5 inline-block">
+                  <a href="#mortgage-calculator" className="text-xs text-[#27BE5D] font-medium hover:underline mt-1.5 inline-block">
                     See full calculator ↓
                   </a>
                 </div>
@@ -339,7 +339,7 @@ export default function ListingPage() {
               ) : (
                 <button
                   onClick={() => setContacted(true)}
-                  className="w-full py-3 mb-3 rounded-xl bg-[#C4602A] text-white text-sm font-semibold hover:bg-[#A84E20] transition-colors"
+                  className="w-full py-3 mb-3 rounded-xl bg-[#27BE5D] text-white text-sm font-semibold hover:bg-[#297A46] transition-colors"
                 >
                   {isRental ? "Request a tour" : "Contact agent"}
                 </button>

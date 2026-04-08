@@ -7,26 +7,42 @@
 @theme {
   --color-background: #FBF4E8;
   --color-foreground: #1C1410;
-  --color-primary-500: #C4602A;
-  --color-primary-600: #A84E20;
+  --color-primary-500: #27BE5D;
+  --color-primary-600: #297A46;
   --color-border: #E2D5C3;
-  --color-ring: #C4602A;
+  --color-ring: #27BE5D;
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
 }
 
 @layer base {
+  html {
+    font-size: 14px;
+    line-height: 20px;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    @apply antialiased scroll-smooth;
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply scroll-smooth;
   }
   * {
     @apply border-border;
   }
-  h1, h2, h3 {
-    font-family: var(--font-playfair), Georgia, serif;
-  }
+}
+
+/* Alegreya on all headings + any element using font-serif —
+   placed outside @layer so it beats Tailwind utility overrides */
+h1, h2, h3, h4, h5, h6,
+.font-serif {
+  font-family: var(--font-playfair), Georgia, serif !important;
+  font-style: normal;
 }
 
 /* Hide scrollbars while keeping scroll functionality */
@@ -56,6 +72,6 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: #E2D5C3;
   --input: #E2D5C3;
-  --ring: #C4602A;
+  --ring: #27BE5D;
   --radius: 0.625rem;
 }

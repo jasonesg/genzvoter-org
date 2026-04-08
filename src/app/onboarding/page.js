@@ -36,13 +36,13 @@ function OptionCard({ emoji, label, sublabel, selected, onClick }) {
       onClick={onClick}
       className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl border-2 text-left transition-all duration-150 active:scale-[0.98]"
       style={{
-        borderColor: selected ? "#C4602A" : "#E0E0E0",
-        background:  selected ? "#FFF5F0" : "#fff",
+        borderColor: selected ? "#27BE5D" : "#E0E0E0",
+        background:  selected ? "#F0FBF4" : "#fff",
       }}
     >
       <span className="text-2xl shrink-0 leading-none">{emoji}</span>
       <div>
-        <p className="font-bold text-[15px]" style={{ color: selected ? "#C4602A" : "#222" }}>{label}</p>
+        <p className="font-bold text-[15px]" style={{ color: selected ? "#27BE5D" : "#222" }}>{label}</p>
         {sublabel && <p className="text-sm text-gray-400 mt-0.5">{sublabel}</p>}
       </div>
     </button>
@@ -60,9 +60,9 @@ function Field({ placeholder, value, onChange, type = "text", maxLength, classNa
       maxLength={maxLength}
       className={`w-full px-5 py-4 rounded-2xl border-2 text-[15px] text-gray-800 placeholder-gray-400 bg-white
         focus:outline-none transition-colors ${className}`}
-      style={{ borderColor: value ? "#C4602A" : "#E0E0E0" }}
-      onFocus={e => e.currentTarget.style.borderColor = "#C4602A"}
-      onBlur={e  => e.currentTarget.style.borderColor = value ? "#C4602A" : "#E0E0E0"}
+      style={{ borderColor: value ? "#27BE5D" : "#E0E0E0" }}
+      onFocus={e => e.currentTarget.style.borderColor = "#27BE5D"}
+      onBlur={e  => e.currentTarget.style.borderColor = value ? "#27BE5D" : "#E0E0E0"}
     />
   );
 }
@@ -152,7 +152,7 @@ export default function OnboardingPage() {
         <div className="flex-1 h-3.5 rounded-full bg-gray-100 overflow-hidden">
           <motion.div
             className="h-full rounded-full"
-            style={{ backgroundColor: "#C4602A" }}
+            style={{ backgroundColor: "#27BE5D" }}
             animate={{ width: `${progressPct}%` }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           />
@@ -294,7 +294,7 @@ export default function OnboardingPage() {
                         : <span className="text-4xl font-bold text-gray-300">{data.full_name?.[0]?.toUpperCase() || "?"}</span>
                       }
                     </div>
-                    <label className="cursor-pointer flex items-center gap-2 px-6 py-3 rounded-full border-2 border-gray-200 text-sm font-semibold text-gray-600 hover:border-[#C4602A] hover:text-[#C4602A] transition-colors">
+                    <label className="cursor-pointer flex items-center gap-2 px-6 py-3 rounded-full border-2 border-gray-200 text-sm font-semibold text-gray-600 hover:border-[#27BE5D] hover:text-[#27BE5D] transition-colors">
                       <Upload className="w-4 h-4" />
                       Upload photo
                       <input type="file" accept="image/*" className="hidden"
@@ -328,10 +328,10 @@ export default function OnboardingPage() {
           disabled={!canContinue() || saving}
           className="px-8 py-3.5 rounded-full text-sm font-black uppercase tracking-widest transition-all duration-150 active:scale-95"
           style={{
-            background:  canContinue() && !saving ? "#C4602A" : "#E0E0E0",
+            background:  canContinue() && !saving ? "#27BE5D" : "#E0E0E0",
             color:       canContinue() && !saving ? "#fff"    : "#aaa",
             cursor:      canContinue() && !saving ? "pointer" : "not-allowed",
-            boxShadow:   canContinue() && !saving ? "0 4px 14px rgba(196,96,42,0.35)" : "none",
+            boxShadow:   canContinue() && !saving ? "0 4px 14px rgba(39,190,93,0.35)" : "none",
           }}
         >
           {saving ? "Saving…" : isLastStep ? "Finish" : "Continue"}
