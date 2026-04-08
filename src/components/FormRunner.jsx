@@ -650,7 +650,7 @@ function ChoiceWithTextStep({ step, choiceValue, textValue, onChoiceChange, onTe
                 font-semibold text-sm select-none overflow-hidden transition-colors duration-200
                 ${selected
                   ? "border-[#27BE5D] bg-[#F0FBF4] text-[#27BE5D]"
-                  : "border-[#E8E0D5] bg-white text-[#4A3728] hover:border-[#27BE5D]/40 hover:bg-[#F9FEF9]"}
+                  : "border-[#E8E0D5] bg-[#FBF4E8] text-[#4A3728] hover:border-[#27BE5D]/40 hover:bg-[#F0FBF4]"}
               `}
             >
               <motion.span className="absolute inset-0 rounded-2xl bg-[#27BE5D]/10 pointer-events-none"
@@ -803,7 +803,7 @@ function SummaryContactStep({
               w-full px-5 py-4 rounded-2xl border-2 border-[#E8E0D5]
               focus:border-[#27BE5D] focus:outline-none
               text-base text-[#1C1410] placeholder-[#C4C0B8]
-              bg-white transition-colors duration-200 caret-[#27BE5D]
+              bg-[#FFFDF8] transition-colors duration-200 caret-[#27BE5D]
             "
           />
         ))}
@@ -1037,7 +1037,7 @@ export function FormRunner({ config }) {
   const showChrome = !["welcome", "thankyou"].includes(currentStep.type);
 
   return (
-    <div className="relative flex flex-col bg-white" style={{ minHeight: "100svh" }}>
+    <div className="relative flex flex-col bg-[#FBF4E8]" style={{ minHeight: "100svh" }}>
       {/* Decorative border frame — visible on tablet+ */}
       <motion.div
         className="pointer-events-none fixed inset-3 rounded-3xl border border-[#27BE5D]/20 z-30 hidden md:block"
@@ -1060,7 +1060,7 @@ export function FormRunner({ config }) {
       />
 
       {/* ── Top chrome ── */}
-      <div className="sticky top-0 z-20 bg-white/96 backdrop-blur-md border-b border-gray-100/80">
+      <div className="sticky top-0 z-20 bg-[#FBF4E8]/96 backdrop-blur-md border-b border-[#E2D5C3]/50">
         <div className="flex items-center justify-between px-5 py-3">
 
           {/* Back */}
