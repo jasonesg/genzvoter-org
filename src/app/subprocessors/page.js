@@ -17,7 +17,7 @@ const SUBPROCESSORS = [
 
 export default function SubprocessorsPage() {
   return (
-    <div className="min-h-screen py-24 px-6" style={{ backgroundColor: "#FBF4E8" }}>
+    <div className="min-h-screen py-24 px-6" style={{ backgroundColor: "#f5f4f1" }}>
       <div className="max-w-[1200px] mx-auto">
 
         <div className="mb-12">
@@ -33,21 +33,21 @@ export default function SubprocessorsPage() {
         </div>
 
         {/* Table — desktop */}
-        <div className="hidden sm:block rounded-2xl border border-[#E2D5C3] overflow-hidden">
+        <div className="hidden sm:block rounded-2xl border border-[#e0dfdb] overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#E2D5C3] bg-[#F5EDD8]">
+              <tr className="border-b border-[#e0dfdb] bg-[#eceae6]">
                 <th className="text-left px-5 py-3.5 text-xs font-semibold text-[#7A6555] uppercase tracking-wider">Name</th>
                 <th className="text-left px-5 py-3.5 text-xs font-semibold text-[#7A6555] uppercase tracking-wider">Purpose</th>
                 <th className="text-left px-5 py-3.5 text-xs font-semibold text-[#7A6555] uppercase tracking-wider">Location</th>
                 <th className="text-left px-5 py-3.5 text-xs font-semibold text-[#7A6555] uppercase tracking-wider">Website</th>
               </tr>
             </thead>
-            <tbody className="bg-[#FBF4E8]">
+            <tbody className="bg-[#f5f4f1]">
               {SUBPROCESSORS.map((sp, i) => (
                 <tr
                   key={sp.name}
-                  className={`hover:bg-[#F5EDD8] transition-colors ${i < SUBPROCESSORS.length - 1 ? "border-b border-[#E2D5C3]" : ""}`}
+                  className={`hover:bg-[#eceae6] transition-colors ${i < SUBPROCESSORS.length - 1 ? "border-b border-[#e0dfdb]" : ""}`}
                 >
                   <td className="px-5 py-4 font-semibold text-[#1C1410]">{sp.name}</td>
                   <td className="px-5 py-4 text-[#4A3728]">{sp.purpose}</td>
@@ -67,7 +67,7 @@ export default function SubprocessorsPage() {
         {/* Cards — mobile */}
         <div className="sm:hidden space-y-4">
           {SUBPROCESSORS.map((sp) => (
-            <div key={sp.name} className="rounded-2xl border border-[#E2D5C3] bg-[#F5EDD8] p-5 space-y-2">
+            <div key={sp.name} className="rounded-2xl border border-[#e0dfdb] bg-[#eceae6] p-5 space-y-2">
               <p className="font-semibold text-[#1C1410]">{sp.name}</p>
               <p className="text-sm text-[#4A3728]">{sp.purpose}</p>
               <p className="text-sm text-[#7A6555]">{sp.location}</p>

@@ -74,7 +74,7 @@ function ConfettiBurst() {
     return {
       tx: Math.cos(rad) * dist,
       ty: Math.sin(rad) * dist,
-      color: ["#27BE5D","#F5EDD8","#1C1410","#E2D5C3","#D4A574"][i % 5],
+      color: ["#27BE5D","#eceae6","#1C1410","#e0dfdb","#D4A574"][i % 5],
       size: 5 + (i % 3) * 2,
     };
   });
@@ -293,7 +293,7 @@ function WelcomeStep({ step, onNext }) {
         {step.eyebrow && (
           <motion.span
             variants={fadeUp}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F5EDD8] border border-[#E2D5C3] text-xs text-[#7A6555] font-medium"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#eceae6] border border-[#e0dfdb] text-xs text-[#7A6555] font-medium"
           >
             <motion.span
               className="w-1.5 h-1.5 rounded-full bg-[#27BE5D]"
@@ -338,7 +338,7 @@ function WelcomeStep({ step, onNext }) {
             transition={{ delay: 1.4, duration: 0.6 }}
             className="mt-3 text-xs text-[#C4C0B8]"
           >
-            or press <kbd className="font-mono bg-[#F5EDD8] px-1.5 py-0.5 rounded text-[#7A6555] border border-[#E2D5C3]">Enter ↵</kbd>
+            or press <kbd className="font-mono bg-[#eceae6] px-1.5 py-0.5 rounded text-[#7A6555] border border-[#e0dfdb]">Enter ↵</kbd>
           </motion.p>
         </motion.div>
       </motion.div>
@@ -419,7 +419,7 @@ function LongTextStep({ step, value, onChange, onNext, canContinue }) {
       {/* Step number */}
       <motion.div variants={fadeUp} className="flex items-center gap-2">
         <motion.span
-          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1C1410] text-[#FBF4E8] text-xs font-bold"
+          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1C1410] text-[#f5f4f1] text-xs font-bold"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ ...SPRING, delay: 0.05 }}
@@ -487,7 +487,7 @@ function LogoSelectStep({ step, selectedValues, onSelect, onNext, canContinue })
       {/* Step number */}
       <motion.div variants={fadeUp} className="flex items-center gap-2">
         <motion.span
-          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1C1410] text-[#FBF4E8] text-xs font-bold"
+          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1C1410] text-[#f5f4f1] text-xs font-bold"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ ...SPRING, delay: 0.05 }}
@@ -532,7 +532,7 @@ function LogoSelectStep({ step, selectedValues, onSelect, onNext, canContinue })
                 <img src={logo.icon} alt={logo.label}
                   className={`w-10 h-10 object-contain rounded-lg transition-opacity duration-200 ${isSelected ? "opacity-100" : "opacity-60 hover:opacity-100"}`}
                   onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }} />
-                <span className={`hidden w-10 h-10 rounded-lg bg-[#F5EDD8] items-center justify-center text-sm font-bold ${isSelected ? "text-[#27BE5D]" : "text-[#1C1410]"}`}>
+                <span className={`hidden w-10 h-10 rounded-lg bg-[#eceae6] items-center justify-center text-sm font-bold ${isSelected ? "text-[#27BE5D]" : "text-[#1C1410]"}`}>
                   {logo.label[0]}
                 </span>
                 <AnimatePresence>
@@ -607,7 +607,7 @@ function ChoiceWithTextStep({ step, choiceValue, textValue, onChoiceChange, onTe
       {/* Step number */}
       <motion.div variants={fadeUp} className="flex items-center gap-2">
         <motion.span
-          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1C1410] text-[#FBF4E8] text-xs font-bold"
+          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1C1410] text-[#f5f4f1] text-xs font-bold"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ ...SPRING, delay: 0.05 }}
@@ -650,7 +650,7 @@ function ChoiceWithTextStep({ step, choiceValue, textValue, onChoiceChange, onTe
                 font-semibold text-sm select-none overflow-hidden transition-colors duration-200
                 ${selected
                   ? "border-[#27BE5D] bg-[#F0FBF4] text-[#27BE5D]"
-                  : "border-[#E8E0D5] bg-[#FBF4E8] text-[#4A3728] hover:border-[#27BE5D]/40 hover:bg-[#F0FBF4]"}
+                  : "border-[#E8E0D5] bg-[#f5f4f1] text-[#4A3728] hover:border-[#27BE5D]/40 hover:bg-[#F0FBF4]"}
               `}
             >
               <motion.span className="absolute inset-0 rounded-2xl bg-[#27BE5D]/10 pointer-events-none"
@@ -879,8 +879,8 @@ function ThankYouStep({ step, name }) {
               href="/"
               className="
                 mt-2 inline-block px-7 py-3 rounded-xl
-                border border-[#E2D5C3] text-sm font-semibold text-[#4A3728]
-                hover:bg-[#F5EDD8] transition-colors
+                border border-[#e0dfdb] text-sm font-semibold text-[#4A3728]
+                hover:bg-[#eceae6] transition-colors
               "
             >
               Back to Houdy&apos;s
@@ -1037,7 +1037,7 @@ export function FormRunner({ config }) {
   const showChrome = !["welcome", "thankyou"].includes(currentStep.type);
 
   return (
-    <div className="relative flex flex-col bg-[#FBF4E8]" style={{ minHeight: "100svh" }}>
+    <div className="relative flex flex-col bg-[#f5f4f1]" style={{ minHeight: "100svh" }}>
       {/* Decorative border frame — visible on tablet+ */}
       <motion.div
         className="pointer-events-none fixed inset-3 rounded-3xl border border-[#27BE5D]/20 z-30 hidden md:block"
@@ -1060,7 +1060,7 @@ export function FormRunner({ config }) {
       />
 
       {/* ── Top chrome ── */}
-      <div className="sticky top-0 z-20 bg-[#FBF4E8]/96 backdrop-blur-md border-b border-[#E2D5C3]/50">
+      <div className="sticky top-0 z-20 bg-[#f5f4f1]/96 backdrop-blur-md border-b border-[#e0dfdb]/50">
         <div className="flex items-center justify-between px-5 py-3">
 
           {/* Back */}

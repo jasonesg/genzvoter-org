@@ -13,8 +13,8 @@ function PropertyCard({ property }) {
 
   return (
     <Link href={`/dashboard/listing/${property.id}`} className="group cursor-pointer">
-      <div className="bg-white rounded-2xl border border-[#E2D5C3] overflow-hidden hover:shadow-lg transition-shadow">
-        <div className="relative aspect-[4/3] bg-[#E2D5C3] overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#e0dfdb] overflow-hidden hover:shadow-lg transition-shadow">
+        <div className="relative aspect-[4/3] bg-[#e0dfdb] overflow-hidden">
           <img
             src={`https://picsum.photos/seed/${property.seed}/480/320`}
             alt={property.type}
@@ -67,7 +67,7 @@ export default function BrowseSectionPage() {
 
   if (!sectionData) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ backgroundColor: "#FBF4E8" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ backgroundColor: "#f5f4f1" }}>
         <p className="text-[#7A6555]">Section not found.</p>
         <Link href="/dashboard" className="text-sm font-medium text-[#27BE5D] hover:underline">Back to dashboard</Link>
       </div>
@@ -82,10 +82,10 @@ export default function BrowseSectionPage() {
   });
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#FBF4E8" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#f5f4f1" }}>
 
       {/* Header */}
-      <header className="sticky top-0 z-20 border-b border-[#E2D5C3] backdrop-blur-md" style={{ backgroundColor: "rgba(251,244,232,0.95)" }}>
+      <header className="sticky top-0 z-20 border-b border-[#e0dfdb] backdrop-blur-md" style={{ backgroundColor: "rgba(245,244,241,0.95)" }}>
         <div className="max-w-[1200px] mx-auto px-5 h-14 flex items-center gap-4">
           <button
             onClick={() => router.back()}
@@ -97,7 +97,7 @@ export default function BrowseSectionPage() {
           <div className="flex-1">
             <h1 className="text-base font-serif font-bold text-[#1C1410]">{sectionData.title}</h1>
           </div>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E2D5C3] bg-white text-sm font-medium text-[#4A3728] hover:bg-[#F5EDD8] transition-colors">
+          <button className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#e0dfdb] bg-white text-sm font-medium text-[#4A3728] hover:bg-[#eceae6] transition-colors">
             <SlidersHorizontal className="w-3.5 h-3.5" />
             Filters
           </button>
@@ -114,9 +114,9 @@ export default function BrowseSectionPage() {
               onClick={() => setActiveFilter(f)}
               className="px-4 py-2 rounded-full text-sm font-medium border transition-all"
               style={{
-                borderColor:      activeFilter === f ? "#1C1410" : "#E2D5C3",
+                borderColor:      activeFilter === f ? "#1C1410" : "#e0dfdb",
                 backgroundColor:  activeFilter === f ? "#1C1410" : "#fff",
-                color:            activeFilter === f ? "#FBF4E8" : "#4A3728",
+                color:            activeFilter === f ? "#f5f4f1" : "#4A3728",
               }}
             >
               {f}

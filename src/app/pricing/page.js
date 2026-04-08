@@ -59,7 +59,7 @@ const PLANS = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen py-24 px-6" style={{ backgroundColor: "#FBF4E8" }}>
+    <div className="min-h-screen py-24 px-6" style={{ backgroundColor: "#f5f4f1" }}>
       <div className="max-w-[1200px] mx-auto">
 
         <div className="text-center mb-16">
@@ -75,8 +75,8 @@ export default function PricingPage() {
               key={plan.name}
               className={`relative flex flex-col rounded-2xl p-7 border transition-all ${
                 plan.highlight
-                  ? "bg-[#1C1410] text-[#FBF4E8] border-[#1C1410] shadow-xl scale-[1.02]"
-                  : "bg-[#F5EDD8] text-[#1C1410] border-[#E2D5C3] hover:border-[#C4A882]"
+                  ? "bg-[#1C1410] text-[#f5f4f1] border-[#1C1410] shadow-xl scale-[1.02]"
+                  : "bg-[#eceae6] text-[#1C1410] border-[#e0dfdb] hover:border-[#C4A882]"
               }`}
             >
               {plan.highlight && (
@@ -87,12 +87,12 @@ export default function PricingPage() {
 
               <div className="mb-6">
                 <h2 className="text-lg font-serif font-bold mb-1">{plan.name}</h2>
-                <p className={`text-sm mb-5 ${plan.highlight ? "text-[#FBF4E8]/60" : "text-[#7A6555]"}`}>
+                <p className={`text-sm mb-5 ${plan.highlight ? "text-[#f5f4f1]/60" : "text-[#7A6555]"}`}>
                   {plan.description}
                 </p>
                 <div className="flex items-baseline gap-1">
                   <span className="text-4xl font-bold">{plan.price}</span>
-                  <span className={`text-sm ${plan.highlight ? "text-[#FBF4E8]/50" : "text-[#7A6555]"}`}>
+                  <span className={`text-sm ${plan.highlight ? "text-[#f5f4f1]/50" : "text-[#7A6555]"}`}>
                     / {plan.period}
                   </span>
                 </div>
@@ -102,7 +102,7 @@ export default function PricingPage() {
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-start gap-2.5 text-sm">
                     <CheckCircle2 className={`w-4 h-4 mt-0.5 shrink-0 ${plan.highlight ? "text-[#27BE5D]" : "text-[#27BE5D]"}`} />
-                    <span className={plan.highlight ? "text-[#FBF4E8]/80" : "text-[#4A3728]"}>{f}</span>
+                    <span className={plan.highlight ? "text-[#f5f4f1]/80" : "text-[#4A3728]"}>{f}</span>
                   </li>
                 ))}
               </ul>
@@ -112,7 +112,7 @@ export default function PricingPage() {
                 className={`w-full py-2.5 rounded-full text-sm font-semibold text-center transition-colors ${
                   plan.highlight
                     ? "bg-[#27BE5D] text-white hover:bg-[#297A46]"
-                    : "bg-[#1C1410] text-[#FBF4E8] hover:bg-[#2E2018]"
+                    : "bg-[#1C1410] text-[#f5f4f1] hover:bg-[#2E2018]"
                 }`}
               >
                 {plan.cta}

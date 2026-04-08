@@ -24,7 +24,7 @@ export default function ListingPage() {
 
   if (!property) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ backgroundColor: "#FBF4E8" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4" style={{ backgroundColor: "#f5f4f1" }}>
         <p className="text-[#7A6555]">Listing not found.</p>
         <Link href="/dashboard" className="text-sm font-medium text-[#27BE5D] hover:underline">Back to dashboard</Link>
       </div>
@@ -47,10 +47,10 @@ export default function ListingPage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#FBF4E8" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "#f5f4f1" }}>
 
       {/* ── Top nav ── */}
-      <header className="sticky top-0 z-30 bg-[#FBF4E8]/95 backdrop-blur-md border-b border-[#E2D5C3]">
+      <header className="sticky top-0 z-30 bg-[#f5f4f1]/95 backdrop-blur-md border-b border-[#e0dfdb]">
         <div className="max-w-[1200px] mx-auto px-5 h-14 flex items-center justify-between gap-4">
           <button
             onClick={() => router.back()}
@@ -59,12 +59,12 @@ export default function ListingPage() {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
           <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E2D5C3] bg-white text-sm font-medium text-[#4A3728] hover:bg-[#F5EDD8] transition-colors">
+            <button className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#e0dfdb] bg-white text-sm font-medium text-[#4A3728] hover:bg-[#eceae6] transition-colors">
               <Share2 className="w-3.5 h-3.5" /> Share
             </button>
             <button
               onClick={() => setSaved(s => !s)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#E2D5C3] bg-white text-sm font-medium text-[#4A3728] hover:bg-[#F5EDD8] transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#e0dfdb] bg-white text-sm font-medium text-[#4A3728] hover:bg-[#eceae6] transition-colors"
             >
               <Heart className={`w-3.5 h-3.5 ${saved ? "fill-[#27BE5D] text-[#27BE5D]" : ""}`} />
               {saved ? "Saved" : "Save"}
@@ -80,7 +80,7 @@ export default function ListingPage() {
           <div>
 
             {/* Image gallery */}
-            <div className="relative rounded-2xl overflow-hidden mb-6 aspect-[16/9] bg-[#E2D5C3]">
+            <div className="relative rounded-2xl overflow-hidden mb-6 aspect-[16/9] bg-[#e0dfdb]">
               <img
                 src={images[imgIdx]}
                 alt={property.type}
@@ -143,21 +143,21 @@ export default function ListingPage() {
 
             {/* Status pills */}
             <div className="flex flex-wrap gap-2 mb-8">
-              <span className="px-3 py-1 bg-[#F5EDD8] border border-[#E2D5C3] rounded-full text-xs font-medium text-[#1C1410]">
+              <span className="px-3 py-1 bg-[#eceae6] border border-[#e0dfdb] rounded-full text-xs font-medium text-[#1C1410]">
                 {property.status}
               </span>
               {property.yearBuilt && (
-                <span className="px-3 py-1 bg-[#F5EDD8] border border-[#E2D5C3] rounded-full text-xs font-medium text-[#1C1410]">
+                <span className="px-3 py-1 bg-[#eceae6] border border-[#e0dfdb] rounded-full text-xs font-medium text-[#1C1410]">
                   Built {property.yearBuilt}
                 </span>
               )}
               {property.lotSize && (
-                <span className="px-3 py-1 bg-[#F5EDD8] border border-[#E2D5C3] rounded-full text-xs font-medium text-[#1C1410]">
+                <span className="px-3 py-1 bg-[#eceae6] border border-[#e0dfdb] rounded-full text-xs font-medium text-[#1C1410]">
                   Lot: {property.lotSize}
                 </span>
               )}
               {property.hoa && (
-                <span className="px-3 py-1 bg-[#F5EDD8] border border-[#E2D5C3] rounded-full text-xs font-medium text-[#1C1410]">
+                <span className="px-3 py-1 bg-[#eceae6] border border-[#e0dfdb] rounded-full text-xs font-medium text-[#1C1410]">
                   HOA: {property.hoa}
                 </span>
               )}
@@ -174,7 +174,7 @@ export default function ListingPage() {
               <h2 className="text-lg font-serif font-bold text-[#1C1410] mb-4">Key features</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {property.features.map(f => (
-                  <div key={f} className="flex items-center gap-2.5 p-3 bg-white rounded-xl border border-[#E2D5C3]">
+                  <div key={f} className="flex items-center gap-2.5 p-3 bg-white rounded-xl border border-[#e0dfdb]">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#27BE5D] shrink-0" />
                     <p className="text-sm text-[#4A3728]">{f}</p>
                   </div>
@@ -185,7 +185,7 @@ export default function ListingPage() {
             {/* Property details table */}
             <div className="mb-8">
               <h2 className="text-lg font-serif font-bold text-[#1C1410] mb-4">Property details</h2>
-              <div className="rounded-2xl border border-[#E2D5C3] overflow-hidden">
+              <div className="rounded-2xl border border-[#e0dfdb] overflow-hidden">
                 {[
                   { label: "Property type",   value: property.type },
                   { label: "Listing type",     value: property.listingType },
@@ -200,8 +200,8 @@ export default function ListingPage() {
                   <div
                     key={label}
                     className={`flex justify-between px-5 py-3 text-sm ${
-                      i % 2 === 0 ? "bg-white" : "bg-[#F5EDD8]"
-                    } ${i < arr.length - 1 ? "border-b border-[#E2D5C3]" : ""}`}
+                      i % 2 === 0 ? "bg-white" : "bg-[#eceae6]"
+                    } ${i < arr.length - 1 ? "border-b border-[#e0dfdb]" : ""}`}
                   >
                     <span className="text-[#7A6555]">{label}</span>
                     <span className="text-[#1C1410] font-medium">{value}</span>
@@ -214,10 +214,10 @@ export default function ListingPage() {
             {!isRental && (
               <div id="mortgage-calculator" className="mb-8">
                 <h2 className="text-lg font-serif font-bold text-[#1C1410] mb-4">Mortgage calculator</h2>
-                <div className="bg-white rounded-2xl border border-[#E2D5C3] p-6">
+                <div className="bg-white rounded-2xl border border-[#e0dfdb] p-6">
 
                   {/* Est. monthly payment */}
-                  <div className="mb-6 pb-6 border-b border-[#E2D5C3]">
+                  <div className="mb-6 pb-6 border-b border-[#e0dfdb]">
                     <p className="text-xs text-[#7A6555] mb-1 uppercase tracking-wider">Est. monthly payment</p>
                     <p className="text-4xl font-bold text-[#1C1410]">{formatCurrency(monthlyPayment)}<span className="text-lg font-normal text-[#7A6555]">/mo</span></p>
                   </div>
@@ -258,7 +258,7 @@ export default function ListingPage() {
                             step={0.1}
                             value={rate}
                             onChange={e => setRate(Number(e.target.value))}
-                            className="w-24 px-3 py-2 rounded-xl border border-[#E2D5C3] bg-[#F5EDD8] text-sm text-[#1C1410] font-semibold focus:outline-none focus:border-[#27BE5D]"
+                            className="w-24 px-3 py-2 rounded-xl border border-[#e0dfdb] bg-[#eceae6] text-sm text-[#1C1410] font-semibold focus:outline-none focus:border-[#27BE5D]"
                           />
                           <span className="text-sm text-[#7A6555]">% per year</span>
                         </div>
@@ -274,8 +274,8 @@ export default function ListingPage() {
                               onClick={() => setTerm(t)}
                               className={`px-4 py-2 rounded-xl text-sm font-semibold border transition-all ${
                                 term === t
-                                  ? "bg-[#1C1410] text-[#FBF4E8] border-[#1C1410]"
-                                  : "bg-white text-[#4A3728] border-[#E2D5C3] hover:bg-[#F5EDD8]"
+                                  ? "bg-[#1C1410] text-[#f5f4f1] border-[#1C1410]"
+                                  : "bg-white text-[#4A3728] border-[#e0dfdb] hover:bg-[#eceae6]"
                               }`}
                             >
                               {t}yr
@@ -287,15 +287,15 @@ export default function ListingPage() {
 
                     {/* Breakdown */}
                     <div className="flex flex-col justify-center gap-3">
-                      <div className="rounded-xl bg-[#F5EDD8] border border-[#E2D5C3] px-4 py-3">
+                      <div className="rounded-xl bg-[#eceae6] border border-[#e0dfdb] px-4 py-3">
                         <p className="text-xs text-[#7A6555] mb-0.5">Home price</p>
                         <p className="text-base font-bold text-[#1C1410]">{property.price}</p>
                       </div>
-                      <div className="rounded-xl bg-[#F5EDD8] border border-[#E2D5C3] px-4 py-3">
+                      <div className="rounded-xl bg-[#eceae6] border border-[#e0dfdb] px-4 py-3">
                         <p className="text-xs text-[#7A6555] mb-0.5">Down payment ({downPct}%)</p>
                         <p className="text-base font-bold text-[#1C1410]">{formatCurrency(downAmount)}</p>
                       </div>
-                      <div className="rounded-xl bg-[#F5EDD8] border border-[#E2D5C3] px-4 py-3">
+                      <div className="rounded-xl bg-[#eceae6] border border-[#e0dfdb] px-4 py-3">
                         <p className="text-xs text-[#7A6555] mb-0.5">Loan amount</p>
                         <p className="text-base font-bold text-[#1C1410]">{formatCurrency(loanAmount)}</p>
                       </div>
@@ -313,7 +313,7 @@ export default function ListingPage() {
 
           {/* ── Right column: Broker card ── */}
           <div className="lg:sticky lg:top-20 h-fit">
-            <div className="bg-white rounded-2xl border border-[#E2D5C3] p-6 shadow-sm mb-4">
+            <div className="bg-white rounded-2xl border border-[#e0dfdb] p-6 shadow-sm mb-4">
               <p className="text-xl font-bold text-[#1C1410] mb-1">{property.price}</p>
               <p className="text-xs text-[#7A6555] mb-5">
                 {isRental ? "Per month · utilities may vary" : "List price · est. payment available"}
@@ -321,7 +321,7 @@ export default function ListingPage() {
 
               {/* Compact mortgage estimate in broker card (for-sale only) */}
               {!isRental && (
-                <div className="rounded-xl bg-[#F5EDD8] border border-[#E2D5C3] px-4 py-3 mb-4">
+                <div className="rounded-xl bg-[#eceae6] border border-[#e0dfdb] px-4 py-3 mb-4">
                   <p className="text-xs text-[#7A6555] mb-0.5">Est. monthly payment</p>
                   <p className="text-xl font-bold text-[#1C1410]">{formatCurrency(monthlyPayment)}<span className="text-sm font-normal text-[#7A6555]">/mo</span></p>
                   <p className="text-xs text-[#B0A090] mt-1">{downPct}% down · {rate}% · {term}yr fixed</p>
@@ -332,7 +332,7 @@ export default function ListingPage() {
               )}
 
               {contacted ? (
-                <div className="rounded-xl bg-[#F5EDD8] border border-[#E2D5C3] p-4 text-center mb-4">
+                <div className="rounded-xl bg-[#eceae6] border border-[#e0dfdb] p-4 text-center mb-4">
                   <p className="text-sm font-semibold text-[#1C1410] mb-1">Request sent!</p>
                   <p className="text-xs text-[#7A6555]">The agent will be in touch shortly.</p>
                 </div>
@@ -345,17 +345,17 @@ export default function ListingPage() {
                 </button>
               )}
 
-              <button className="w-full py-3 rounded-xl border border-[#E2D5C3] bg-[#F5EDD8] text-[#1C1410] text-sm font-semibold hover:bg-[#E2D5C3] transition-colors">
+              <button className="w-full py-3 rounded-xl border border-[#e0dfdb] bg-[#eceae6] text-[#1C1410] text-sm font-semibold hover:bg-[#e0dfdb] transition-colors">
                 Schedule a call
               </button>
             </div>
 
             {/* Broker info */}
-            <div className="bg-white rounded-2xl border border-[#E2D5C3] p-6 shadow-sm">
+            <div className="bg-white rounded-2xl border border-[#e0dfdb] p-6 shadow-sm">
               <h3 className="text-sm font-semibold text-[#7A6555] uppercase tracking-wider mb-4">Listed by</h3>
 
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-[#1C1410] flex items-center justify-center text-[#FBF4E8] text-lg font-bold shrink-0">
+                <div className="w-12 h-12 rounded-full bg-[#1C1410] flex items-center justify-center text-[#f5f4f1] text-lg font-bold shrink-0">
                   {property.agent[0]}
                 </div>
                 <div>
@@ -364,7 +364,7 @@ export default function ListingPage() {
                 </div>
               </div>
 
-              <div className="rounded-xl bg-[#F5EDD8] px-4 py-3 mb-4 border border-[#E2D5C3]">
+              <div className="rounded-xl bg-[#eceae6] px-4 py-3 mb-4 border border-[#e0dfdb]">
                 <p className="text-xs text-[#7A6555] mb-0.5">Brokerage</p>
                 <p className="text-sm font-bold text-[#1C1410]">{property.broker}</p>
               </div>
@@ -386,7 +386,7 @@ export default function ListingPage() {
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-[#E2D5C3]">
+              <div className="mt-4 pt-4 border-t border-[#e0dfdb]">
                 <p className="text-xs text-[#7A6555] leading-relaxed">
                   Listing provided by {property.broker}. {property.agent} {property.dre}.
                   Information deemed reliable but not guaranteed. Last updated April 4, 2026.

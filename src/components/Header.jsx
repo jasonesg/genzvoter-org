@@ -16,10 +16,10 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#FBF4E8]/90 backdrop-blur-md border-b border-[#E2D5C3]">
+    <nav className="sticky top-0 z-50 bg-[#f5f4f1]/90 backdrop-blur-md border-b border-[#e0dfdb]">
       <div className="h-16 flex items-center justify-between px-6 max-w-[1200px] mx-auto w-full">
         <Link href="/" className="font-serif font-bold text-xl text-[#1C1410] tracking-tight">
-          Houdys
+          Houdy&apos;s
         </Link>
 
         {/* Desktop nav */}
@@ -39,7 +39,7 @@ export function Header() {
           ))}
           <Link
             href="/signup"
-            className="text-sm font-semibold bg-[#1C1410] text-[#FBF4E8] px-5 py-2 rounded-full hover:bg-[#2E2018] transition-colors"
+            className="text-sm font-semibold bg-[#1C1410] text-[#f5f4f1] px-5 py-2 rounded-full hover:bg-[#2E2018] transition-colors"
           >
             Sign up
           </Link>
@@ -63,7 +63,7 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden border-t border-[#E2D5C3] bg-[#FBF4E8]"
+            className="md:hidden overflow-hidden border-t border-[#e0dfdb] bg-[#f5f4f1]"
           >
             <div className="flex flex-col px-6 py-5 gap-5">
               {NAV_LINKS.map(({ href, label }) => (
@@ -79,7 +79,7 @@ export function Header() {
               <Link
                 href="/signup"
                 onClick={() => setMenuOpen(false)}
-                className="text-sm font-semibold bg-[#1C1410] text-[#FBF4E8] px-5 py-2.5 rounded-full text-center hover:bg-[#2E2018] transition-colors"
+                className="text-sm font-semibold bg-[#1C1410] text-[#f5f4f1] px-5 py-2.5 rounded-full text-center hover:bg-[#2E2018] transition-colors"
               >
                 Sign up
               </Link>

@@ -11,6 +11,7 @@ const PRODUCT_LINKS = [
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms-of-service", label: "Terms of Service" },
   { href: "/subprocessors", label: "Subprocessors" },
+  { href: "/get-started", label: "Flea Playground" },
 ];
 
 const RESOURCE_LINKS = [
@@ -56,13 +57,13 @@ export function ClientLayoutWrapper({ children }) {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col selection:bg-primary-500/20" style={{ backgroundColor: "#FBF4E8" }}>
+    <div className="relative min-h-screen flex flex-col selection:bg-primary-500/20" style={{ backgroundColor: "#f5f4f1" }}>
       <Header />
       <main className="flex-1">
         <PageTransition>{children}</PageTransition>
       </main>
 
-      <footer className="border-t border-[#E2D5C3] pt-14 pb-10 px-6" style={{ backgroundColor: "#FBF4E8" }}>
+      <footer className="border-t border-[#e0dfdb] pt-14 pb-10 px-6" style={{ backgroundColor: "#f5f4f1" }}>
         <div className="max-w-[1200px] mx-auto">
 
           {/* Top row */}
@@ -71,7 +72,7 @@ export function ClientLayoutWrapper({ children }) {
             {/* Brand */}
             <div className="col-span-2 md:col-span-2">
               <Link href="/" className="font-serif font-bold text-2xl text-[#1C1410] mb-3 inline-block">
-                Houdys
+                Houdy&apos;s
               </Link>
               <p className="text-sm text-[#7A6555] max-w-xs leading-relaxed">
                 Find your next home. Browse listings, connect with brokers, and move faster.
@@ -85,7 +86,7 @@ export function ClientLayoutWrapper({ children }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="w-8 h-8 rounded-full bg-[#E2D5C3] flex items-center justify-center text-[#7A6555] hover:bg-[#1C1410] hover:text-[#FBF4E8] transition-colors"
+                    className="w-8 h-8 rounded-full bg-[#e0dfdb] flex items-center justify-center text-[#7A6555] hover:bg-[#1C1410] hover:text-[#f5f4f1] transition-colors"
                   >
                     <Icon className="w-3.5 h-3.5" />
                   </a>
@@ -124,8 +125,8 @@ export function ClientLayoutWrapper({ children }) {
           </div>
 
           {/* Bottom row */}
-          <div className="border-t border-[#E2D5C3] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-xs text-[#7A6555]">© {new Date().getFullYear()} Houdys. All rights reserved.</p>
+          <div className="border-t border-[#e0dfdb] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p className="text-xs text-[#7A6555]">© {new Date().getFullYear()} Houdy&apos;s. All rights reserved.</p>
             <Link href="/sitemap" className="text-xs text-[#7A6555] hover:text-[#1C1410] transition-colors">
               Sitemap
             </Link>

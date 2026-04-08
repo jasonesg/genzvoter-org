@@ -14,7 +14,7 @@ function Mascot({ message }) {
   return (
     <div className="flex items-center gap-4 mb-10">
       <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl shrink-0 select-none"
-           style={{ background: "linear-gradient(135deg,#FBF4E8,#F5EDD8)", border: "2px solid #E2D5C3" }}>
+           style={{ background: "linear-gradient(135deg,#f5f4f1,#eceae6)", border: "2px solid #e0dfdb" }}>
         🏠
       </div>
       <div className="relative bg-white rounded-2xl px-5 py-4 shadow-sm" style={{ border: "2px solid #E8E8E8" }}>

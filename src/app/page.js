@@ -43,20 +43,14 @@ export default function LandingPage() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs text-white/80 backdrop-blur-md">
             <span className="flex h-1.5 w-1.5 rounded-full bg-orange-400 animate-pulse" />
-            Actively building at Houdys
+            New page, Houdy&apos;s?
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full max-w-xs sm:max-w-none">
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3 text-sm font-semibold text-[#1C1410] bg-[#FBF4E8] rounded-full transition-transform hover:scale-105 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3 text-sm font-semibold text-[#1C1410] bg-[#f5f4f1] rounded-full transition-transform hover:scale-105 active:scale-95"
             >
               Sign up for Houdys
-            </Link>
-            <Link
-              href="/get-started"
-              className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3 text-sm font-semibold text-white bg-white/10 border border-white/20 rounded-full backdrop-blur-sm hover:bg-white/20 transition-colors"
-            >
-              Flea Playground <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
         </motion.div>
@@ -90,10 +84,10 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="p-7 rounded-2xl bg-[#F5EDD8] border border-[#E2D5C3]"
+              className="p-7 rounded-2xl bg-[#eceae6] border border-[#e0dfdb]"
             >
               <div className="w-10 h-10 rounded-xl bg-[#1C1410] flex items-center justify-center mb-5">
-                <Icon className="w-5 h-5 text-[#FBF4E8]" />
+                <Icon className="w-5 h-5 text-[#f5f4f1]" />
               </div>
               <h3 className="font-serif font-bold text-lg text-[#1C1410] mb-2">{title}</h3>
               <p className="text-sm text-[#7A6555] leading-relaxed">{desc}</p>
@@ -116,22 +110,22 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="p-8 rounded-2xl bg-[#1C1410] text-[#FBF4E8]"
+            className="p-8 rounded-2xl bg-[#1C1410] text-[#f5f4f1]"
           >
-            <div className="w-10 h-10 rounded-xl bg-[#FBF4E8]/10 flex items-center justify-center mb-6">
-              <Home className="w-5 h-5 text-[#FBF4E8]" />
+            <div className="w-10 h-10 rounded-xl bg-[#f5f4f1]/10 flex items-center justify-center mb-6">
+              <Home className="w-5 h-5 text-[#f5f4f1]" />
             </div>
             <h3 className="font-serif font-bold text-2xl mb-2">For Shoppers</h3>
-            <p className="text-[#FBF4E8]/60 text-sm mb-6">Looking to rent or buy? We've got thousands of listings waiting for you.</p>
+            <p className="text-[#f5f4f1]/60 text-sm mb-6">Looking to rent or buy? We've got thousands of listings waiting for you.</p>
             <ul className="space-y-3 mb-8">
               {SHOPPER_FEATURES.map((f) => (
-                <li key={f} className="flex items-center gap-3 text-sm text-[#FBF4E8]/80">
+                <li key={f} className="flex items-center gap-3 text-sm text-[#f5f4f1]/80">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#27BE5D] shrink-0" />
                   {f}
                 </li>
               ))}
             </ul>
-            <Link href="/signup" className="inline-flex items-center gap-2 text-sm font-semibold text-[#FBF4E8] bg-[#27BE5D] px-5 py-2.5 rounded-full hover:bg-[#297A46] transition-colors">
+            <Link href="/signup" className="inline-flex items-center gap-2 text-sm font-semibold text-[#f5f4f1] bg-[#27BE5D] px-5 py-2.5 rounded-full hover:bg-[#297A46] transition-colors">
               Start browsing <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
@@ -142,10 +136,10 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="p-8 rounded-2xl bg-[#F5EDD8] border border-[#E2D5C3]"
+            className="p-8 rounded-2xl bg-[#eceae6] border border-[#e0dfdb]"
           >
             <div className="w-10 h-10 rounded-xl bg-[#1C1410] flex items-center justify-center mb-6">
-              <Briefcase className="w-5 h-5 text-[#FBF4E8]" />
+              <Briefcase className="w-5 h-5 text-[#f5f4f1]" />
             </div>
             <h3 className="font-serif font-bold text-2xl text-[#1C1410] mb-2">For Brokers</h3>
             <p className="text-[#7A6555] text-sm mb-6">Grow your client base and manage listings all in one place.</p>
@@ -157,7 +151,7 @@ export default function LandingPage() {
                 </li>
               ))}
             </ul>
-            <Link href="/signup" className="inline-flex items-center gap-2 text-sm font-semibold text-[#FBF4E8] bg-[#1C1410] px-5 py-2.5 rounded-full hover:bg-[#2E2018] transition-colors">
+            <Link href="/signup" className="inline-flex items-center gap-2 text-sm font-semibold text-[#f5f4f1] bg-[#1C1410] px-5 py-2.5 rounded-full hover:bg-[#2E2018] transition-colors">
               List your properties <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
@@ -173,11 +167,11 @@ export default function LandingPage() {
           transition={{ duration: 0.5 }}
           className="rounded-3xl bg-[#27BE5D] px-10 py-16 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#FBF4E8] mb-4">Ready to find your<br />next home?</h2>
-          <p className="text-[#FBF4E8]/70 mb-8 max-w-md mx-auto">Join Houdys today and start browsing thousands of properties across the country.</p>
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#f5f4f1] mb-4">Ready to find your<br />next home?</h2>
+          <p className="text-[#f5f4f1]/70 mb-8 max-w-md mx-auto">Join Houdys today and start browsing thousands of properties across the country.</p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 text-sm font-semibold bg-[#FBF4E8] text-[#1C1410] px-7 py-3 rounded-full hover:bg-white transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-semibold bg-[#f5f4f1] text-[#1C1410] px-7 py-3 rounded-full hover:bg-white transition-colors"
           >
             Create your free account <ArrowRight className="w-4 h-4" />
           </Link>
