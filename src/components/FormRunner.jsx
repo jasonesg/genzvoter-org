@@ -475,6 +475,7 @@ function LongTextStep({ step, value, onChange, onNext, canContinue }) {
 // ─────────────────────────────────────────────────────────────
 function LogoSelectStep({ step, selectedValues, onSelect, onNext, canContinue }) {
   const selected = selectedValues[0] || null;
+  const selectedLogo = step.logos.find((l) => l.value === selected) || null;
 
   return (
     <motion.div
@@ -518,60 +519,53 @@ function LogoSelectStep({ step, selectedValues, onSelect, onNext, canContinue })
         {step.logos.map((logo) => {
           const isSelected = selected === logo.value;
           return (
-            <div key={logo.value} className="relative">
-              <motion.button
-                variants={fadeUp}
-                onClick={() => onSelect(logo.value)}
-                whileHover={{ scale: 1.12, y: -3 }}
-                whileTap={{ scale: 0.92 }}
-                transition={SPRING}
-                className="relative w-full flex items-center justify-center py-3 px-2 rounded-xl"
-              >
-                {/* Logo only — no border, no label */}
-                <div className="relative">
-                  <img src={logo.icon} alt={logo.label}
-                    className={`w-10 h-10 object-contain rounded-lg transition-opacity duration-200 ${isSelected ? "opacity-100" : "opacity-60 hover:opacity-100"}`}
-                    onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }} />
-                  <span className={`hidden w-10 h-10 rounded-lg bg-[#F5EDD8] items-center justify-center text-sm font-bold ${isSelected ? "text-[#27BE5D]" : "text-[#1C1410]"}`}>
-                    {logo.label[0]}
-                  </span>
-                  {/* Selected ring */}
-                  <AnimatePresence>
-                    {isSelected && (
-                      <motion.span
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        exit={{ scale: 0, opacity: 0 }}
-                        transition={SPRING}
-                        className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#27BE5D] flex items-center justify-center shadow-sm"
-                      >
-                        <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </motion.button>
-
-              {/* Fun fact — discrete dark tooltip above card, right-aligned */}
-              <AnimatePresence>
-                {isSelected && logo.funFact && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 6 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 6 }}
-                    transition={{ ...SPRING_SOFT, delay: 0.15 }}
-                    className="absolute bottom-full right-0 mb-2 z-20 w-52 rounded-xl bg-[#1C1410] text-white px-3 py-2.5 shadow-lg pointer-events-none"
-                  >
-                    <span className="absolute -bottom-1 right-4 w-2 h-2 bg-[#1C1410] rotate-45" />
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#27BE5D] mb-1">Fun fact</p>
-                    <p className="text-[11px] leading-snug text-white/85">{logo.funFact}</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+            <motion.button
+              key={logo.value}
+              variants={fadeUp}
+              onClick={() => onSelect(isSelected ? null : logo.value)}
+              whileHover={{ scale: 1.12, y: -3 }}
+              whileTap={{ scale: 0.92 }}
+              transition={SPRING}
+              className="relative w-full flex items-center justify-center py-3 px-2 rounded-xl"
+            >
+              <div className="relative">
+                <img src={logo.icon} alt={logo.label}
+                  className={`w-10 h-10 object-contain rounded-lg transition-opacity duration-200 ${isSelected ? "opacity-100" : "opacity-60 hover:opacity-100"}`}
+                  onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }} />
+                <span className={`hidden w-10 h-10 rounded-lg bg-[#F5EDD8] items-center justify-center text-sm font-bold ${isSelected ? "text-[#27BE5D]" : "text-[#1C1410]"}`}>
+                  {logo.label[0]}
+                </span>
+                <AnimatePresence>
+                  {isSelected && (
+                    <motion.span initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }} transition={SPRING}
+                      className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#27BE5D] flex items-center justify-center shadow-sm">
+                      <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.button>
           );
         })}
       </motion.div>
+
+      {/* Fun fact tooltip — rendered below the grid, always within container */}
+      <AnimatePresence>
+        {selectedLogo?.funFact && (
+          <motion.div
+            key={selectedLogo.value}
+            initial={{ opacity: 0, y: -6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            transition={{ ...SPRING_SOFT, delay: 0.15 }}
+            className="rounded-xl bg-[#1C1410] text-white px-4 py-3 shadow-lg -mt-2"
+          >
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#27BE5D] mb-1">Fun fact</p>
+            <p className="text-[12px] leading-snug text-white/85">{selectedLogo.funFact}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="flex items-center justify-between">
         <KeyHint text="Pick one to continue" />
@@ -849,14 +843,14 @@ function ThankYouStep({ step, name }) {
     <div className="relative flex flex-col items-center justify-center text-center px-6 h-full gap-6 overflow-hidden">
       <ConfettiBurst />
 
-      <motion.span
-        className="text-7xl relative z-10"
-        initial={{ scale: 0, rotate: -20 }}
+      <motion.div
+        className="relative z-10"
+        initial={{ scale: 0, rotate: -8 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ ...SPRING_SOFT, delay: 0.1 }}
       >
-        {step.emoji}
-      </motion.span>
+        <VideoPlaceholder />
+      </motion.div>
 
       <motion.div
         variants={stagger(0.1, 0.13)}
@@ -1166,7 +1160,7 @@ export function FormRunner({ config }) {
               <LogoSelectStep
                 step={currentStep}
                 selectedValues={answers[currentStep.field] || []}
-                onSelect={(v) => setAnswer(currentStep.field, [v])}
+                onSelect={(v) => setAnswer(currentStep.field, v ? [v] : [])}
                 onNext={goNext}
                 canContinue={canContinue()}
               />
