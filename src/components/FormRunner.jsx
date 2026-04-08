@@ -95,10 +95,11 @@ function ConfettiBurst() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Animated textarea with expanding underline
+// Animated textarea with expanding underline + char count
 // ─────────────────────────────────────────────────────────────
 function AnimatedTextarea({ value, onChange, onKeyDown, placeholder, rows = 4, autoFocusRef }) {
   const [focused, setFocused] = useState(false);
+  const charCount = value?.length || 0;
   return (
     <div className="relative pb-1">
       <textarea
@@ -126,12 +127,26 @@ function AnimatedTextarea({ value, onChange, onKeyDown, placeholder, rows = 4, a
         transition={{ duration: 0.35, ease: EASE }}
         style={{ transformOrigin: "left" }}
       />
+      {/* Character count — fades in after typing starts */}
+      <AnimatePresence>
+        {charCount > 0 && (
+          <motion.span
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.25 }}
+            className="absolute -bottom-5 right-0 text-[10px] text-[#C4C0B8] tabular-nums select-none"
+          >
+            {charCount}
+          </motion.span>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────
-// Continue button — springs in/out with canContinue
+// Continue button — springs in/out with canContinue + idle pulse
 // ─────────────────────────────────────────────────────────────
 function ContinueBtn({ onClick, show, label = "OK ↵", loading = false }) {
   return (
@@ -142,15 +157,24 @@ function ContinueBtn({ onClick, show, label = "OK ↵", loading = false }) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 8, scale: 0.94 }}
           transition={SPRING}
+          className="relative"
         >
+          {/* Idle glow ring */}
+          {!loading && (
+            <motion.span
+              className="absolute inset-0 rounded-xl bg-[#27BE5D] pointer-events-none"
+              animate={{ scale: [1, 1.18, 1], opacity: [0.35, 0, 0.35] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+            />
+          )}
           <motion.button
             onClick={onClick}
             disabled={loading}
-            whileHover={{ scale: 1.04, y: -2, boxShadow: "0 10px 28px rgba(39,190,93,0.28)" }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: 1.05, y: -2, boxShadow: "0 12px 32px rgba(39,190,93,0.32)" }}
+            whileTap={{ scale: 0.94 }}
             transition={SPRING}
             className="
-              px-7 py-3 rounded-xl bg-[#27BE5D] text-white
+              relative px-7 py-3 rounded-xl bg-[#27BE5D] text-white
               text-sm font-bold uppercase tracking-widest
               shadow-md shadow-[#27BE5D]/20
               disabled:opacity-70
@@ -181,6 +205,73 @@ function KeyHint({ text = "press Enter ↵" }) {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Video placeholder — Spotify Wrapped style portrait card
+// ─────────────────────────────────────────────────────────────
+function VideoPlaceholder() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ ...SPRING_SOFT, delay: 0.2 }}
+      className="relative w-[140px] rounded-2xl overflow-hidden shadow-2xl shadow-black/30 flex-shrink-0"
+      style={{ aspectRatio: "9/16" }}
+    >
+      {/* Dark gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0d1f14] via-[#0a1a10] to-[#111]" />
+
+      {/* Noise texture overlay */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          backgroundSize: "120px",
+        }}
+      />
+
+      {/* Green glow at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#27BE5D]/25 to-transparent" />
+
+      {/* Top label */}
+      <div className="absolute top-3 left-0 right-0 flex justify-center">
+        <span className="text-[9px] font-bold uppercase tracking-widest text-white/40">
+          Introduction
+        </span>
+      </div>
+
+      {/* Pulsing play button */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          className="relative flex items-center justify-center"
+          animate={{ scale: [1, 1.08, 1] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          {/* Ring pulse */}
+          <motion.div
+            className="absolute w-12 h-12 rounded-full border border-white/20"
+            animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+          />
+          {/* Play icon */}
+          <div className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20">
+            <svg className="w-4 h-4 text-white fill-white ml-0.5" viewBox="0 0 16 16">
+              <path d="M4 2.5l10 5.5-10 5.5V2.5z" />
+            </svg>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom "coming soon" tag */}
+      <div className="absolute bottom-3 left-0 right-0 flex justify-center">
+        <span className="text-[8px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#27BE5D]/20 text-[#27BE5D] border border-[#27BE5D]/30">
+          Coming soon
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // STEP: Welcome
 // ─────────────────────────────────────────────────────────────
 function WelcomeStep({ step, onNext }) {
@@ -194,6 +285,11 @@ function WelcomeStep({ step, onNext }) {
         animate="show"
         className="relative z-10 flex flex-col items-center gap-6"
       >
+        {/* Video placeholder */}
+        <motion.div variants={fadeUp}>
+          <VideoPlaceholder />
+        </motion.div>
+
         {step.eyebrow && (
           <motion.span
             variants={fadeUp}
@@ -251,6 +347,51 @@ function WelcomeStep({ step, onNext }) {
 }
 
 // ─────────────────────────────────────────────────────────────
+// YouTube inline — underlined text with logo peek on hover/tap
+// ─────────────────────────────────────────────────────────────
+function YouTubeWord() {
+  const [peeked, setPeeked] = useState(false);
+  return (
+    <span
+      className="relative inline-block cursor-default"
+      onMouseEnter={() => setPeeked(true)}
+      onMouseLeave={() => setPeeked(false)}
+      onClick={() => setPeeked((p) => !p)}
+    >
+      <span className="underline decoration-[#D1C9BF] decoration-1 underline-offset-4">YouTube</span>
+      <AnimatePresence>
+        {peeked && (
+          <motion.span
+            initial={{ opacity: 0, y: 6, scale: 0.7 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.7 }}
+            transition={{ type: "spring", stiffness: 400, damping: 22 }}
+            className="absolute -top-9 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
+          >
+            <img
+              src="/youtube-icon.svg"
+              alt="YouTube"
+              className="h-6 w-auto drop-shadow-md"
+            />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  );
+}
+
+function RichQuestion({ text }) {
+  const parts = text.split(/(YouTube)/g);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part === "YouTube" ? <YouTubeWord key={i} /> : <span key={i}>{part}</span>
+      )}
+    </>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
 // STEP: Long text
 // ─────────────────────────────────────────────────────────────
 function LongTextStep({ step, value, onChange, onNext, canContinue }) {
@@ -295,12 +436,12 @@ function LongTextStep({ step, value, onChange, onNext, canContinue }) {
         </motion.span>
       </motion.div>
 
-      {/* Question */}
+      {/* Question — supports inline tokens like {{youtube}} */}
       <motion.h2
         variants={fadeUp}
         className="text-2xl md:text-3xl font-bold text-[#1C1410] leading-snug"
       >
-        {step.question}
+        {step.question.includes("YouTube") ? <RichQuestion text={step.question} /> : step.question}
       </motion.h2>
 
       {/* Hint */}
@@ -330,15 +471,137 @@ function LongTextStep({ step, value, onChange, onNext, canContinue }) {
 }
 
 // ─────────────────────────────────────────────────────────────
-// STEP: Choice + optional text (Q7)
+// STEP: Logo single-select + fun fact tooltip (Q1)
 // ─────────────────────────────────────────────────────────────
-function ChoiceWithTextStep({ step, choiceValue, onChoiceChange, onNext }) {
-  // Auto-advance 320ms after a card is tapped — gives the selection animation
-  // time to play before the step slides away.
+function LogoSelectStep({ step, selectedValues, onSelect, onNext, canContinue }) {
+  const selected = selectedValues[0] || null;
+
+  return (
+    <motion.div
+      variants={stagger(0.04, 0.1)}
+      initial="hidden"
+      animate="show"
+      className="flex flex-col justify-center px-6 md:px-0 h-full max-w-2xl mx-auto w-full gap-6"
+    >
+      {/* Step number */}
+      <motion.div variants={fadeUp} className="flex items-center gap-2">
+        <motion.span
+          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1C1410] text-[#FBF4E8] text-xs font-bold"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ ...SPRING, delay: 0.05 }}
+        >
+          {step.number}
+        </motion.span>
+        <motion.span
+          className="text-xs font-semibold text-[#27BE5D] uppercase tracking-widest"
+          initial={{ opacity: 0, x: -6 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.15 }}
+        >
+          →
+        </motion.span>
+      </motion.div>
+
+      <motion.h2 variants={fadeUp} className="text-2xl md:text-3xl font-bold text-[#1C1410] leading-snug">
+        {step.question}
+      </motion.h2>
+
+      {step.subtext && (
+        <motion.p variants={fadeUp} className="text-sm text-[#B0A898] -mt-3">
+          {step.subtext}
+        </motion.p>
+      )}
+
+      {/* Logo cards — 4×1 horizontal row */}
+      <motion.div variants={stagger(0.06, 0.08)} className="grid grid-cols-4 gap-2">
+        {step.logos.map((logo) => {
+          const isSelected = selected === logo.value;
+          return (
+            <div key={logo.value} className="relative">
+              <motion.button
+                variants={fadeUp}
+                onClick={() => onSelect(logo.value)}
+                whileHover={{ scale: 1.12, y: -3 }}
+                whileTap={{ scale: 0.92 }}
+                transition={SPRING}
+                className="relative w-full flex items-center justify-center py-3 px-2 rounded-xl"
+              >
+                {/* Logo only — no border, no label */}
+                <div className="relative">
+                  <img src={logo.icon} alt={logo.label}
+                    className={`w-10 h-10 object-contain rounded-lg transition-opacity duration-200 ${isSelected ? "opacity-100" : "opacity-60 hover:opacity-100"}`}
+                    onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "flex"; }} />
+                  <span className={`hidden w-10 h-10 rounded-lg bg-[#F5EDD8] items-center justify-center text-sm font-bold ${isSelected ? "text-[#27BE5D]" : "text-[#1C1410]"}`}>
+                    {logo.label[0]}
+                  </span>
+                  {/* Selected ring */}
+                  <AnimatePresence>
+                    {isSelected && (
+                      <motion.span
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        exit={{ scale: 0, opacity: 0 }}
+                        transition={SPRING}
+                        className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#27BE5D] flex items-center justify-center shadow-sm"
+                      >
+                        <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.button>
+
+              {/* Fun fact — discrete dark tooltip above card, right-aligned */}
+              <AnimatePresence>
+                {isSelected && logo.funFact && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9, y: 6 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 6 }}
+                    transition={{ ...SPRING_SOFT, delay: 0.15 }}
+                    className="absolute bottom-full right-0 mb-2 z-20 w-52 rounded-xl bg-[#1C1410] text-white px-3 py-2.5 shadow-lg pointer-events-none"
+                  >
+                    <span className="absolute -bottom-1 right-4 w-2 h-2 bg-[#1C1410] rotate-45" />
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#27BE5D] mb-1">Fun fact</p>
+                    <p className="text-[11px] leading-snug text-white/85">{logo.funFact}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+      </motion.div>
+
+      <div className="flex items-center justify-between">
+        <KeyHint text="Pick one to continue" />
+        <ContinueBtn onClick={onNext} show={canContinue} />
+      </div>
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────
+// STEP: Choice + optional text
+// ─────────────────────────────────────────────────────────────
+function ChoiceWithTextStep({ step, choiceValue, textValue, onChoiceChange, onTextChange, onNext, canContinue }) {
+  const requireText = !!step.requireText;
+  const minWords = step.minWords || 0;
+  const wordCount = textValue ? textValue.trim().split(/\s+/).filter(Boolean).length : 0;
+  const textRef = useRef(null);
+
+  // Auto-advance only when no text is required
   function handleSelect(value) {
     onChoiceChange(value);
-    setTimeout(onNext, 320);
+    if (!requireText) setTimeout(onNext, 320);
   }
+
+  // Focus textarea when choice is made and text is required
+  useEffect(() => {
+    if (requireText && choiceValue && textRef.current) {
+      setTimeout(() => textRef.current?.focus(), 200);
+    }
+  }, [choiceValue, requireText]);
 
   return (
     <motion.div
@@ -373,7 +636,7 @@ function ChoiceWithTextStep({ step, choiceValue, onChoiceChange, onNext }) {
         </motion.p>
       )}
 
-      {/* Choice cards — tap to select + auto-advance */}
+      {/* Choice cards */}
       <motion.div variants={stagger(0.06, 0.07)} className="flex flex-wrap gap-3">
         {step.choices.map((c) => {
           const selected = choiceValue === c.value;
@@ -382,28 +645,34 @@ function ChoiceWithTextStep({ step, choiceValue, onChoiceChange, onNext }) {
               key={c.value}
               variants={fadeUp}
               onClick={() => handleSelect(c.value)}
-              whileHover={{ scale: 1.03, y: -2, boxShadow: "0 8px 24px rgba(0,0,0,0.09)" }}
-              whileTap={{ scale: 0.96 }}
+              whileHover={{
+                scale: 1.04, y: -3,
+                boxShadow: selected ? "0 10px 28px rgba(39,190,93,0.22)" : "0 8px 24px rgba(0,0,0,0.10)",
+              }}
+              whileTap={{ scale: 0.93 }}
               transition={SPRING}
               className={`
                 relative flex items-center gap-3 px-5 py-4 rounded-2xl border-2
-                font-semibold text-sm select-none
+                font-semibold text-sm select-none overflow-hidden transition-colors duration-200
                 ${selected
                   ? "border-[#27BE5D] bg-[#F0FBF4] text-[#27BE5D]"
-                  : "border-[#E8E0D5] bg-white text-[#4A3728]"}
+                  : "border-[#E8E0D5] bg-white text-[#4A3728] hover:border-[#27BE5D]/40 hover:bg-[#F9FEF9]"}
               `}
             >
-              <span className="text-xl leading-none">{c.emoji}</span>
+              <motion.span className="absolute inset-0 rounded-2xl bg-[#27BE5D]/10 pointer-events-none"
+                initial={{ scale: 0, opacity: 0 }} whileTap={{ scale: 2.5, opacity: 1 }}
+                transition={{ duration: 0.35, ease: "easeOut" }} />
+              <motion.span className="text-xl leading-none"
+                animate={selected ? { rotate: [0, -12, 12, 0], scale: [1, 1.3, 1] } : {}}
+                transition={{ duration: 0.4, ease: "easeOut" }}>
+                {c.emoji}
+              </motion.span>
               {c.label}
               <AnimatePresence>
                 {selected && (
-                  <motion.span
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    transition={SPRING}
-                    className="ml-1 flex items-center justify-center w-4 h-4 rounded-full bg-[#27BE5D]"
-                  >
+                  <motion.span initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }} transition={SPRING}
+                    className="ml-1 flex items-center justify-center w-4 h-4 rounded-full bg-[#27BE5D]">
                     <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
                   </motion.span>
                 )}
@@ -412,6 +681,54 @@ function ChoiceWithTextStep({ step, choiceValue, onChoiceChange, onNext }) {
           );
         })}
       </motion.div>
+
+      {/* Required text area — slides in after a choice is made */}
+      <AnimatePresence>
+        {requireText && choiceValue && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -10, height: 0 }}
+            transition={SPRING_SOFT}
+            className="overflow-hidden"
+          >
+            <AnimatedTextarea
+              autoFocusRef={textRef}
+              value={textValue || ""}
+              onChange={(e) => onTextChange(e.target.value)}
+              placeholder={step.textPlaceholder}
+              rows={3}
+            />
+            <div className="flex items-center justify-between mt-5">
+              {/* Progressive breadcrumb hint */}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={wordCount >= minWords ? "done" : wordCount >= 2 ? "mid" : "start"}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.25 }}
+                  className={`text-xs ${wordCount >= minWords ? "text-[#27BE5D]" : "text-[#C4C0B8]"}`}
+                >
+                  {wordCount >= (minWords * 0.8)
+                    ? "Hmm, understandable..."
+                    : wordCount >= (minWords * 0.6)
+                    ? "Few more.."
+                    : "Share a bit more.."}
+                </motion.span>
+              </AnimatePresence>
+              <ContinueBtn onClick={onNext} show={canContinue} />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Non-required: just show continue after tap */}
+      {!requireText && (
+        <div className="flex justify-end mt-1">
+          <ContinueBtn onClick={onNext} show={!!choiceValue} />
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -572,7 +889,7 @@ function ThankYouStep({ step, name }) {
                 hover:bg-[#F5EDD8] transition-colors
               "
             >
-              Back to Houdys
+              Back to Houdy&apos;s
             </Link>
           </motion.div>
         </motion.div>
@@ -629,22 +946,39 @@ export function FormRunner({ config }) {
   function goBack() { setDir(-1); setStepIndex((i) => Math.max(i - 1, 0)); }
   function setAnswer(field, value) {
     setAnswers((p) => ({ ...p, [field]: value }));
-    // Track choice selections
-    if (field === "own_vs_rent") {
-      gtag("event", "survey_choice", {
-        survey_slug: config.slug,
-        field,
-        value,
-      });
+    if (field === "own_vs_rent" || field === "financial_comfort") {
+      gtag("event", "survey_choice", { survey_slug: config.slug, field, value });
     }
+  }
+
+  function toggleLogo(field, value) {
+    setAnswers((p) => {
+      const current = p[field] || [];
+      const next = current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value];
+      return { ...p, [field]: next };
+    });
   }
 
   const canContinue = useCallback(() => {
     if (!currentStep.required) return true;
     switch (currentStep.type) {
-      case "long_text":       return !!answers[currentStep.field]?.trim();
-      case "choice_with_text": return !!answers[currentStep.field];
-      default: return true;
+      case "long_text":
+        return !!answers[currentStep.field]?.trim();
+      case "choice_with_text": {
+        const hasChoice = !!answers[currentStep.field];
+        if (!hasChoice) return false;
+        if (currentStep.requireText) {
+          const words = answers[currentStep.textField]?.trim().split(/\s+/).filter(Boolean).length || 0;
+          return words >= (currentStep.minWords || 0);
+        }
+        return true;
+      }
+      case "logo_select":
+        return (answers[currentStep.field] || []).length > 0;
+      default:
+        return true;
     }
   }, [currentStep, answers]);
 
@@ -692,10 +1026,8 @@ export function FormRunner({ config }) {
         return;
       }
 
-      // For choice_with_text: advance only when a choice is selected
-      // and the focus is NOT inside a textarea (textarea handles its own Enter)
       if (
-        currentStep.type === "choice_with_text" &&
+        (currentStep.type === "choice_with_text" || currentStep.type === "logo_select") &&
         canContinue() &&
         document.activeElement?.tagName !== "TEXTAREA"
       ) {
@@ -712,6 +1044,26 @@ export function FormRunner({ config }) {
 
   return (
     <div className="relative flex flex-col bg-white" style={{ minHeight: "100svh" }}>
+      {/* Decorative border frame — visible on tablet+ */}
+      <motion.div
+        className="pointer-events-none fixed inset-3 rounded-3xl border border-[#27BE5D]/20 z-30 hidden md:block"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+      />
+      {/* Mobile: just a top + bottom accent line */}
+      <motion.div
+        className="pointer-events-none fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#27BE5D]/30 to-transparent z-30 md:hidden"
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ delay: 0.3, duration: 0.7, ease: EASE }}
+      />
+      <motion.div
+        className="pointer-events-none fixed bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#27BE5D]/20 to-transparent z-30 md:hidden"
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ delay: 0.5, duration: 0.7, ease: EASE }}
+      />
 
       {/* ── Top chrome ── */}
       <div className="sticky top-0 z-20 bg-white/96 backdrop-blur-md border-b border-gray-100/80">
@@ -739,8 +1091,8 @@ export function FormRunner({ config }) {
           </div>
 
           {/* Logo */}
-          <Link href="/" className="font-bold text-[15px] text-[#1C1410] tracking-tight">
-            Houdys
+          <Link href="/" className="font-serif font-bold text-xl text-[#1C1410] tracking-tight">
+            Houdy&apos;s
           </Link>
 
           {/* Step counter */}
@@ -764,12 +1116,19 @@ export function FormRunner({ config }) {
 
         {/* Progress bar */}
         {showChrome && (
-          <div className="h-[3px] bg-gray-100 w-full">
+          <div className="relative h-[3px] bg-gray-100 w-full overflow-visible">
             <motion.div
-              className="h-full bg-[#27BE5D]"
+              className="h-full bg-[#27BE5D] relative"
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.5, ease: EASE }}
-            />
+            >
+              {/* Travelling dot on the bar */}
+              <motion.span
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#27BE5D] shadow-[0_0_6px_rgba(39,190,93,0.7)]"
+                animate={{ opacity: progress > 0 && progress < 100 ? [1, 0.4, 1] : 0 }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
           </div>
         )}
       </div>
@@ -799,6 +1158,15 @@ export function FormRunner({ config }) {
                 step={currentStep}
                 value={answers[currentStep.field] || ""}
                 onChange={(v) => setAnswer(currentStep.field, v)}
+                onNext={goNext}
+                canContinue={canContinue()}
+              />
+            )}
+            {currentStep.type === "logo_select" && (
+              <LogoSelectStep
+                step={currentStep}
+                selectedValues={answers[currentStep.field] || []}
+                onSelect={(v) => setAnswer(currentStep.field, [v])}
                 onNext={goNext}
                 canContinue={canContinue()}
               />

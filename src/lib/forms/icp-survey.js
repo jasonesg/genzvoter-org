@@ -14,89 +14,118 @@ export const ICP_SURVEY = {
       eyebrow: "Takes about 3 minutes",
     },
 
-    // Q1 (was Q3)
+    // Q1 — logo recognition (single-select + fun fact tooltip)
     {
-      type: "long_text",
-      field: "app_trust",
+      type: "logo_select",
+      field: "logo_recognition",
       number: 1,
-      question:
-        "If an app made renting or buying a home as easy as booking an Airbnb — what would actually make you trust it?",
-      placeholder: "What would need to be true...",
-      hint: "Think about what makes you trust or distrust apps you already use.",
+      question: "Which of these logos look familiar to you?",
+      subtext: "Pick the most familiar one.",
+      logos: [
+        {
+          label: "Airbnb",
+          value: "airbnb",
+          icon: "/logo-airbnb.png",
+          funFact: "Founded in 2008 when two guys rented their air mattresses out to pay for rent.",
+        },
+        {
+          label: "Zillow",
+          value: "zillow",
+          icon: "/logo-zillow.png",
+          funFact: "When their site publicly launched on December 2004, the demands from users to see their \"Zestimates\" instantly crashed the company's servers.",
+        },
+        {
+          label: "Robinhood",
+          value: "robinhood",
+          icon: "/logo-robinhood.png",
+          funFact: "Founded on April 18th, 2013, their promise of commission-free trades generated so much hype that almost a million people joined their waitlist before they publicly launched.",
+        },
+        {
+          label: "Pinterest",
+          value: "pinterest",
+          icon: "/logo-pinterest.png",
+          funFact: "After Pinterest was founded in December 2009, the Founder personally wrote emails to the platform's first 5,000 users to gather feedback, and even occasionally giving out his personal cell phone number.",
+        },
+      ],
       required: true,
     },
 
-    // Q2 (was Q1)
+    // Q2 — YouTube channels
     {
       type: "long_text",
-      field: "buying_process",
+      field: "youtube_channels",
       number: 2,
-      question: "When you want to know if something's worth buying — what's your actual process?",
-      placeholder: "Type your answer here...",
-      hint: "Could be anything — food, clothes, electronics, whatever.",
+      question: "When you go on YouTube, what are the top three channels that pop up on your homepage?",
+      placeholder: "youtube.com/@thedailyshow",
+      hint: "Would these be people you'd personally go-to for school/life advice?",
       required: true,
     },
 
-    // Q3 (was Q2)
-    {
-      type: "long_text",
-      field: "life_at_30",
-      number: 3,
-      question: "Picture your life at 30. Where are you, and what does it look like?",
-      placeholder: "Paint the picture...",
-      hint: "Be as specific or as vague as you want.",
-      required: true,
-    },
-
-    // Q4 (was Q4)
+    // Q3 — typical day
     {
       type: "long_text",
       field: "typical_day",
-      number: 4,
-      question:
-        "When you're not in school or asleep — what are you actually doing? Walk me through a real Tuesday.",
-      placeholder: "3pm, school ends. Then...",
-      hint: "The more specific the better. No judgment.",
+      number: 3,
+      question: "When you're not in school, what are you doing on your free-time? Walk me through a random Tuesday.",
+      placeholder: "I genuinely enjoy...",
+      hint: "Are you in extra-curricular sports? Club? Hacking on something at home? Reading?",
       required: true,
     },
 
-    // Q5 (was Q6)
+    // Q4 — adult advice
     {
       type: "long_text",
-      field: "financial_stress",
-      number: 5,
-      question: "What feels most uncertain or stressful about your financial future?",
-      placeholder: "What's weighing on you...",
-      hint: "Could be short-term, long-term, or both.",
+      field: "adult_advice",
+      number: 4,
+      question: "What's one thing you wish that adults talked to you directly about?",
+      placeholder: "tbh..",
+      hint: "Advice on day-to-day decisions? Life after school? How to comeback from failures? Money?",
       required: true,
     },
 
-    // Q6 (was Q7)
+    // Q5 — financial comfort (3 choices, no "Sometimes")
+    {
+      type: "choice_with_text",
+      field: "financial_comfort",
+      textField: "financial_comfort_reason",
+      number: 5,
+      question: "Do you feel comfortable talking to your parents about splurging on something like a laptop or concert tickets?",
+      subtext: "No right answer here.",
+      choices: [
+        { emoji: "✅", label: "Yes, always.",          value: "yes" },
+        { emoji: "🙅", label: "Not really",            value: "no" },
+        { emoji: "🤐", label: "We never talk money",   value: "never" },
+      ],
+      textPlaceholder: "What makes it easy or hard to bring up?",
+      textHint: "Optional — but we'd love to understand why.",
+    },
+
+    // Q6 — own vs rent (3 choices, requires text before continuing)
     {
       type: "choice_with_text",
       field: "own_vs_rent",
       textField: "own_vs_rent_reason",
       number: 6,
-      question: "Gut feeling — would you rather own or rent long-term?",
+      question: "Gut feeling — do you see yourself owning a house at some point?",
       subtext: "There's no right answer.",
       choices: [
-        { emoji: "🏡", label: "Own", value: "own" },
-        { emoji: "🔑", label: "Rent", value: "rent" },
-        { emoji: "🤷", label: "No idea yet", value: "unsure" },
+        { emoji: "🏡", label: "Definitely",      value: "yes" },
+        { emoji: "🤷", label: "Maybe someday",   value: "maybe" },
+        { emoji: "🔑", label: "I'd rather rent", value: "rent" },
       ],
-      textPlaceholder: "Tell us why... or why not.",
-      textHint: "Optional but we'd love to hear your thinking.",
+      textPlaceholder: "In at least a few words, how come?",
+      requireText: true,
+      minWords: 10,
     },
 
-    // Q7 (was Q5)
+    // Q7 — financial stress
     {
       type: "long_text",
-      field: "honest_talk",
+      field: "financial_stress",
       number: 7,
-      question:
-        "What's one thing you wish adults talked to you more honestly about — money, where life goes after school, anything?",
-      placeholder: "Be honest...",
-      hint: "There's genuinely no wrong answer here.",
+      question: "What feels most uncertain about our generation's financial future?",
+      placeholder: "The floor is yours.",
+      hint: "Could be short-term, long-term, or both.",
       required: true,
     },
 
@@ -104,9 +133,9 @@ export const ICP_SURVEY = {
       type: "summary_contact",
       heading: "Here's what you shared.",
       subheading: "Want us to save this and keep you in the loop on what we build?",
-      namePlaceholder: "First name",
+      namePlaceholder: "Your name",
       emailPlaceholder: "Your email",
-      submitLabel: "Save my responses →",
+      submitLabel: "Share →",
     },
 
     {
