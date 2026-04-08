@@ -26,7 +26,7 @@ export const ICP_SURVEY = {
           label: "Airbnb",
           value: "airbnb",
           icon: "/logo-airbnb.png",
-          funFact: "Founded in 2008 when two guys rented their air mattresses out to pay for rent.",
+          funFact: "Originally \"AirBed & Breakfast\" that was founded in 2008. The company's very first paying guests slept on air mattresses in the Founders' living room.",
         },
         {
           label: "Zillow",
