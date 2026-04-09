@@ -6,7 +6,7 @@ export function imgUrl(id, w = 800, h = 600) {
 export const MOCK_PROPERTIES = [
   // ── Homes for you ─────────────────────────────────────────────────
   {
-    id: 1, section: "Homes for you",
+    id: 1, lng: -97.7649, lat: 30.2441, section: "Homes for you",
     type: "House", listingType: "House for sale",
     location: "Austin, TX", address: "2104 Barton Hills Dr, Austin, TX 78704",
     price: "$485,000", priceNum: 485000, sqft: 1820,
@@ -20,7 +20,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 2, section: "Homes for you",
+    id: 2, lng: -73.9898, lat: 40.6935, section: "Homes for you",
     type: "Apartment", listingType: "Apartment for rent",
     location: "Brooklyn, NY", address: "280 Cadman Plaza W #14B, Brooklyn, NY 11201",
     price: "$3,100/mo", priceNum: 3100, sqft: 940,
@@ -34,7 +34,7 @@ export const MOCK_PROPERTIES = [
     openHouse: "Sun 11am–2pm (4/5)",
   },
   {
-    id: 3, section: "Homes for you",
+    id: 3, lng: -80.1836, lat: 25.7689, section: "Homes for you",
     type: "Condo", listingType: "Condo for rent",
     location: "Miami, FL", address: "900 Brickell Key Blvd #1501, Miami, FL 33131",
     price: "$2,750/mo", priceNum: 2750, sqft: 1105,
@@ -48,7 +48,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 4, section: "Homes for you",
+    id: 4, lng: -104.9441, lat: 39.7392, section: "Homes for you",
     type: "House", listingType: "House for rent",
     location: "Denver, CO", address: "1845 Spruce St, Denver, CO 80220",
     price: "$1,950/mo", priceNum: 1950, sqft: 1640,
@@ -62,7 +62,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 5, section: "Homes for you",
+    id: 5, lng: -87.6195, lat: 41.8939, section: "Homes for you",
     type: "Studio", listingType: "Studio for rent",
     location: "Chicago, IL", address: "233 E Erie St #405, Chicago, IL 60611",
     price: "$1,450/mo", priceNum: 1450, sqft: 520,
@@ -76,7 +76,7 @@ export const MOCK_PROPERTIES = [
     openHouse: "Sun 1–4pm (4/5)",
   },
   {
-    id: 6, section: "Homes for you",
+    id: 6, lng: -122.3378, lat: 47.6097, section: "Homes for you",
     type: "Apartment", listingType: "Apartment for rent",
     location: "Seattle, WA", address: "400 Pike St #8, Seattle, WA 98101",
     price: "$2,600/mo", priceNum: 2600, sqft: 875,
@@ -92,7 +92,7 @@ export const MOCK_PROPERTIES = [
 
   // ── Popular rentals near you ───────────────────────────────────────
   {
-    id: 7, section: "Popular rentals near you",
+    id: 7, lng: -86.7963, lat: 36.1376, section: "Popular rentals near you",
     type: "Townhouse", listingType: "Townhouse for rent",
     location: "Nashville, TN", address: "1205 12th Ave S, Nashville, TN 37203",
     price: "$2,200/mo", priceNum: 2200, sqft: 1780,
@@ -106,7 +106,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 8, section: "Popular rentals near you",
+    id: 8, lng: -122.6993, lat: 45.5334, section: "Popular rentals near you",
     type: "Apartment", listingType: "Apartment for rent",
     location: "Portland, OR", address: "2134 NW Thurman St, Portland, OR 97210",
     price: "$1,800/mo", priceNum: 1800, sqft: 760,
@@ -120,7 +120,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 9, section: "Popular rentals near you",
+    id: 9, lng: -112.0785, lat: 33.4704, section: "Popular rentals near you",
     type: "House", listingType: "House for rent",
     location: "Phoenix, AZ", address: "4321 N 7th Ave, Phoenix, AZ 85013",
     price: "$1,700/mo", priceNum: 1700, sqft: 1490,
@@ -134,7 +134,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 10, section: "Popular rentals near you",
+    id: 10, lng: -122.3894, lat: 37.7786, section: "Popular rentals near you",
     type: "Loft", listingType: "Loft for rent",
     location: "San Francisco, CA", address: "88 King St #203, San Francisco, CA 94107",
     price: "$3,800/mo", priceNum: 3800, sqft: 1050,
@@ -148,7 +148,7 @@ export const MOCK_PROPERTIES = [
     openHouse: "Sun 11am–2pm (4/5)",
   },
   {
-    id: 11, section: "Popular rentals near you",
+    id: 11, lng: -71.0830, lat: 42.3467, section: "Popular rentals near you",
     type: "Condo", listingType: "Condo for rent",
     location: "Boston, MA", address: "100 Huntington Ave #12C, Boston, MA 02116",
     price: "$2,950/mo", priceNum: 2950, sqft: 990,
@@ -162,7 +162,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 12, section: "Popular rentals near you",
+    id: 12, lng: -84.3879, lat: 33.7748, section: "Popular rentals near you",
     type: "Apartment", listingType: "Apartment for rent",
     location: "Atlanta, GA", address: "650 Peachtree St NE #1803, Atlanta, GA 30308",
     price: "$1,550/mo", priceNum: 1550, sqft: 810,
@@ -178,7 +178,7 @@ export const MOCK_PROPERTIES = [
 
   // ── For sale in your area ──────────────────────────────────────────
   {
-    id: 13, section: "For sale in your area",
+    id: 13, lng: -96.8103, lat: 32.8024, section: "For sale in your area",
     type: "House", listingType: "House for sale",
     location: "Dallas, TX", address: "3847 Maple Ave, Dallas, TX 75219",
     price: "$485,000", priceNum: 485000, sqft: 2240,
@@ -192,7 +192,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 14, section: "For sale in your area",
+    id: 14, lng: -118.4765, lat: 34.0536, section: "For sale in your area",
     type: "Condo", listingType: "Condo for sale",
     location: "Los Angeles, CA", address: "1200 Wilshire Blvd #1205, Los Angeles, CA 90025",
     price: "$720,000", priceNum: 720000, sqft: 1310,
@@ -206,7 +206,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 15, section: "For sale in your area",
+    id: 15, lng: -77.0369, lat: 38.9182, section: "For sale in your area",
     type: "Townhouse", listingType: "Townhouse for sale",
     location: "Washington, DC", address: "1412 S St NW, Washington, DC 20009",
     price: "$610,000", priceNum: 610000, sqft: 1870,
@@ -220,7 +220,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 16, section: "For sale in your area",
+    id: 16, lng: -80.8270, lat: 35.1729, section: "For sale in your area",
     type: "House", listingType: "House for sale",
     location: "Charlotte, NC", address: "2813 Providence Rd, Charlotte, NC 28211",
     price: "$390,000", priceNum: 390000, sqft: 1960,
@@ -234,7 +234,7 @@ export const MOCK_PROPERTIES = [
     openHouse: "Sun 1–4pm (4/5)",
   },
   {
-    id: 17, section: "For sale in your area",
+    id: 17, lng: -93.2271, lat: 44.9778, section: "For sale in your area",
     type: "Apartment", listingType: "Condo for sale",
     location: "Minneapolis, MN", address: "100 University Ave SE #402, Minneapolis, MN 55414",
     price: "$275,000", priceNum: 275000, sqft: 850,
@@ -248,7 +248,7 @@ export const MOCK_PROPERTIES = [
     openHouse: null,
   },
   {
-    id: 18, section: "For sale in your area",
+    id: 18, lng: -82.5307, lat: 27.8749, section: "For sale in your area",
     type: "House", listingType: "House for sale",
     location: "Tampa, FL", address: "4128 W Bay Ave, Tampa, FL 33616",
     price: "$445,000", priceNum: 445000, sqft: 2010,

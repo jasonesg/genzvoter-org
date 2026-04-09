@@ -22,6 +22,7 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@uicapsule": "https://uicapsule.com/r/{name}.json"
+    "@uicapsule": "https://uicapsule.com/r/{name}.json",
+    "@mapcn": "https://mapcn.dev/r/{name}.json"
   }
 }

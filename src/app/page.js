@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Search, MessageSquare, Star, Home, Briefcase } from "lucide-react";
 import { AsciiRenderer } from "@/uicapsule/ascii-renderer/ascii-renderer";
 import Link from "next/link";
+import FAQ from "@/components/sections/faq/default";
 
 const FEATURES = [
   {
@@ -157,6 +158,53 @@ export default function LandingPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── FAQ ── */}
+      <FAQ
+        title="Common questions"
+        items={[
+          {
+            question: "What is Houdys?",
+            answer: (
+              <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
+                Houdys is a real estate platform that connects shoppers with brokers. Browse thousands of rent and buy listings, message agents directly, and manage your search all in one place.
+              </p>
+            ),
+          },
+          {
+            question: "Is Houdys free for shoppers?",
+            answer: (
+              <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
+                Yes — creating an account and browsing listings is completely free for shoppers. You can save favourites, message brokers, and set up alerts at no cost.
+              </p>
+            ),
+          },
+          {
+            question: "How do I contact a broker?",
+            answer: (
+              <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
+                Once you find a listing you like, hit the message button on the listing card or detail page. Your message goes directly to the broker — no middleman, no delays.
+              </p>
+            ),
+          },
+          {
+            question: "Can I save listings and come back later?",
+            answer: (
+              <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
+                Absolutely. Hit the save icon on any listing to add it to your favourites. Your saved list syncs across all your devices so you never lose track.
+              </p>
+            ),
+          },
+          {
+            question: "How do brokers list properties on Houdys?",
+            answer: (
+              <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
+                Brokers get their own dedicated dashboard to list properties, manage leads, and track performance. Sign up and select the broker account type to get started.
+              </p>
+            ),
+          },
+        ]}
+      />
 
       {/* ── CTA ── */}
       <section className="py-20 px-6 md:px-12 max-w-[1200px] mx-auto">

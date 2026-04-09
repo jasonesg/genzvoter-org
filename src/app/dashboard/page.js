@@ -4,12 +4,13 @@ import { useEffect, useState, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
-  Search, Heart, Star, ChevronLeft, ChevronRight,
+  Search, Heart, ChevronLeft, ChevronRight,
   LogOut, User, Home, Bookmark, MessageSquare, Bell,
   Settings, Menu, X, MapPin,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { SECTIONS, MOCK_PROPERTIES, imgUrl } from "@/lib/mockProperties";
+import MapView from "@/components/dashboard/MapView";
 
 const NAV_ITEMS = [
   { id: "browse",   label: "Browse",   Icon: Home },
@@ -127,165 +128,20 @@ function PropertyRow({ title, slug, properties }) {
   );
 }
 
-// ── Map view ────────────────────────────────────────────────────────
-function MapView({ initialZip = "" }) {
-  const [zipInput, setZipInput]   = useState(initialZip);
-  const [searching, setSearching] = useState(false);
-  const [coords, setCoords]       = useState(null);
-  const [mapZip, setMapZip]       = useState("");
-  const [filter, setFilter]       = useState("all");
-  const [error, setError]         = useState("");
-
-  async function searchZip(zip) {
-    if (!zip) return;
-    setSearching(true);
-    setError("");
-    try {
-      const res  = await fetch(
-        `https://nominatim.openstreetmap.org/search?postalcode=${encodeURIComponent(zip)}&country=US&format=json&limit=1`,
-        { headers: { "Accept-Language": "en" } }
-      );
-      const data = await res.json();
-      if (data[0]) {
-        setCoords({ lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) });
-        setMapZip(zip);
-      } else {
-        setError("ZIP code not found. Try another.");
-      }
-    } catch {
-      setError("Couldn't load map. Check your connection.");
-    }
-    setSearching(false);
-  }
-
-  useEffect(() => {
-    if (initialZip) searchZip(initialZip);
-  }, [initialZip]);
-
-  async function handleSearch(e) {
-    e.preventDefault();
-    await searchZip(zipInput.trim());
-  }
-
-  const mapSrc = coords
-    ? `https://www.openstreetmap.org/export/embed.html?bbox=${coords.lon - 0.06},${coords.lat - 0.06},${coords.lon + 0.06},${coords.lat + 0.06}&layer=mapnik`
-    : null;
-
-  const nearby = MOCK_PROPERTIES.filter(p =>
-    filter === "all"  ? true :
-    filter === "rent" ? p.price.includes("/mo") :
-                        !p.price.includes("/mo")
-  );
-
-  return (
-    <div className="px-6 py-8">
-      <h2 className="text-xl font-serif font-bold text-[#1C1410] mb-1">Map search</h2>
-      <p className="text-sm text-[#7A6555] mb-5">Enter a ZIP code to explore listings nearby.</p>
-
-      <form onSubmit={handleSearch} className="flex flex-wrap items-center gap-3 mb-6">
-        <div className="flex items-center bg-white rounded-full border border-[#e0dfdb] shadow-sm overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5">
-            <MapPin className="w-4 h-4 text-[#7A6555] shrink-0" />
-            <input
-              type="text"
-              value={zipInput}
-              onChange={e => setZipInput(e.target.value)}
-              placeholder="Enter ZIP code"
-              maxLength={10}
-              className="w-32 text-sm text-[#4A3728] placeholder-[#B0A090] bg-transparent focus:outline-none"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={searching}
-            className="shrink-0 m-1.5 px-4 py-2 bg-[#27BE5D] text-white text-sm font-medium rounded-full hover:bg-[#297A46] transition-colors disabled:opacity-60"
-          >
-            {searching ? "Searching…" : "Search"}
-          </button>
-        </div>
-
-        <div className="flex items-center gap-1 bg-[#eceae6] rounded-full p-1 border border-[#e0dfdb]">
-          {[{ id: "all", label: "All" }, { id: "rent", label: "Rent" }, { id: "buy", label: "Buy" }].map(f => (
-            <button
-              key={f.id}
-              type="button"
-              onClick={() => setFilter(f.id)}
-              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                filter === f.id ? "bg-white text-[#1C1410] shadow-sm" : "text-[#7A6555] hover:text-[#1C1410]"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-      </form>
-
-      {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
-
-      {mapSrc ? (
-        <div className="rounded-2xl overflow-hidden border border-[#e0dfdb] shadow-sm mb-8" style={{ height: 360 }}>
-          <iframe title="Property map" src={mapSrc} width="100%" height="100%" style={{ border: 0 }} loading="lazy" />
-        </div>
-      ) : (
-        <div className="rounded-2xl border border-[#e0dfdb] bg-[#eceae6] flex flex-col items-center justify-center gap-3 mb-8" style={{ height: 360 }}>
-          <MapPin className="w-10 h-10 text-[#27BE5D] opacity-50" />
-          <p className="text-sm text-[#7A6555]">Enter a ZIP code above to load the map</p>
-        </div>
-      )}
-
-      <div>
-        <h3 className="text-base font-serif font-bold text-[#1C1410] mb-4">
-          {mapZip ? `Listings near ${mapZip}` : "Sample listings"}
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {nearby.slice(0, 6).map(p => (
-            <Link key={p.id} href={`/dashboard/listing/${p.id}`} className="bg-white rounded-2xl border border-[#e0dfdb] overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
-              <div className="relative aspect-[4/3] bg-[#e0dfdb]">
-                <img
-                  src={imgUrl(p.photoId, 480, 320)}
-                  alt={p.type}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {p.openHouse && (
-                  <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#27BE5D] rounded-full text-xs font-semibold text-white">
-                    Open: {p.openHouse}
-                  </span>
-                )}
-                {p.tag && !p.openHouse && (
-                  <span className="absolute top-3 left-3 px-2.5 py-1 bg-black/60 rounded-full text-xs font-semibold text-white">
-                    {p.tag}
-                  </span>
-                )}
-              </div>
-              <div className="p-4">
-                <p className="text-base font-bold text-[#1C1410] mb-1">{p.price}</p>
-                <p className="text-sm text-[#4A3728] mb-1">
-                  <span className="font-semibold">{p.beds} bds</span> | <span className="font-semibold">{p.baths} ba</span> | <span className="font-semibold">{p.sqft.toLocaleString()} sqft</span>
-                </p>
-                <p className="text-sm text-[#1C1410] mb-1 leading-snug">{p.address}</p>
-                <p className="text-xs text-[#7A6555] truncate">{p.broker}, {p.agent} {p.dre}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ── Inner dashboard (reads search params) ──────────────────────────
-function DashboardInner({ user, onSignOut }) {
+function DashboardInner({ user, profile, onSignOut }) {
   const searchParams   = useSearchParams();
   const initialNav     = searchParams.get("nav") || "browse";
-  const initialZip     = searchParams.get("zip") || "";
 
   const [activeNav, setActiveNav] = useState(initialNav);
   const [activeTab, setActiveTab] = useState("all");
   const [searchInput, setSearchInput] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const avatarLetter = user?.user_metadata?.full_name?.[0] || user?.email?.[0]?.toUpperCase() || "U";
-  const displayName  = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "You";
+  // Prefer profile name (set during onboarding) over auth metadata
+  const displayName  = profile?.full_name || user?.user_metadata?.full_name || user?.email?.split("@")[0] || "You";
+  const avatarLetter = displayName[0]?.toUpperCase() || "U";
 
   // Compute filtered sections based on activeTab and searchInput
   const filteredSections = SECTIONS.map(section => {
@@ -427,9 +283,11 @@ function DashboardInner({ user, onSignOut }) {
         </header>
 
         {/* Content */}
-        <main className="flex-1">
+        <main className="flex-1 flex flex-col">
           {activeNav === "map" ? (
-            <MapView initialZip={initialZip} />
+            <div className="flex-1" style={{ height: "calc(100vh - 57px)" }}>
+              <MapView filter={activeTab} zipCode={profile?.zip_code} />
+            </div>
           ) : (
             <div className="px-6 py-8">
               {filteredSections.length === 0 ? (
@@ -458,13 +316,22 @@ function DashboardInner({ user, onSignOut }) {
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser]       = useState(null);
+  const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!supabase) { setLoading(false); return; }
-    supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) router.replace("/signup");
-      else { setUser(data.user); setLoading(false); }
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (!data.user) { router.replace("/signup"); return; }
+      setUser(data.user);
+      // Fetch profile for full_name + zip_code
+      const { data: prof } = await supabase
+        .from("profiles")
+        .select("full_name, zip_code")
+        .eq("id", data.user.id)
+        .single();
+      setProfile(prof ?? null);
+      setLoading(false);
     });
   }, [router]);
 
@@ -483,7 +350,7 @@ export default function DashboardPage() {
 
   return (
     <Suspense>
-      <DashboardInner user={user} onSignOut={handleSignOut} />
+      <DashboardInner user={user} profile={profile} onSignOut={handleSignOut} />
     </Suspense>
   );
 }

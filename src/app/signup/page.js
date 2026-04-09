@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, Phone, ChevronDown, Search } from "lucide-react";
+import { ArrowLeft, Phone, ChevronDown, Search } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 const COUNTRIES = [
@@ -92,7 +92,6 @@ function CountryDropdown({ selected, onChange }) {
         <span className="font-medium">{selected.dial}</span>
         <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
       </button>
-
       {open && (
         <div className="absolute left-0 top-full mt-1 z-50 w-64 bg-white border border-neutral-200 rounded-lg shadow-lg overflow-hidden">
           <div className="p-2 border-b border-neutral-100 flex items-center gap-2">
@@ -100,7 +99,7 @@ function CountryDropdown({ selected, onChange }) {
             <input
               autoFocus
               type="text"
-              placeholder="Search country or code…"
+              placeholder="Search country or code..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="flex-1 text-sm text-neutral-800 placeholder-neutral-400 focus:outline-none bg-transparent"
@@ -128,7 +127,6 @@ function CountryDropdown({ selected, onChange }) {
     </div>
   );
 }
-
 
 function GoogleIcon() {
   return (
@@ -169,19 +167,16 @@ function FloatingCard({ tag, color, delay, rotate, translateY }) {
 }
 
 export default function SignupPage() {
-  const [view, setView] = useState("main"); // "main" | "phone" | "phone-verify" | "email" | "done"
+  const [view, setView] = useState("main");
   const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
-  const [country, setCountry] = useState(COUNTRIES[0]); // default US
+  const [country, setCountry] = useState(COUNTRIES[0]);
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   async function handleGoogle() {
-    if (!supabase) {
-      setError("Auth not configured — add Supabase keys to .env.local");
-      return;
-    }
+    if (!supabase) { setError("Auth not configured — add Supabase keys to .env.local"); return; }
     setLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -193,10 +188,7 @@ export default function SignupPage() {
 
   async function handleEmailContinue(e) {
     e.preventDefault();
-    if (!supabase) {
-      setError("Auth not configured — add Supabase keys to .env.local");
-      return;
-    }
+    if (!supabase) { setError("Auth not configured — add Supabase keys to .env.local"); return; }
     setLoading(true);
     setError("");
     const { error } = await supabase.auth.signInWithOtp({
@@ -210,10 +202,7 @@ export default function SignupPage() {
 
   async function handlePhoneSend(e) {
     e.preventDefault();
-    if (!supabase) {
-      setError("Auth not configured — add Supabase keys to .env.local");
-      return;
-    }
+    if (!supabase) { setError("Auth not configured — add Supabase keys to .env.local"); return; }
     setLoading(true);
     setError("");
     const fullPhone = country.dial + phoneNum.replace(/\D/g, "");
@@ -229,225 +218,175 @@ export default function SignupPage() {
     setLoading(true);
     setError("");
     const fullPhone = country.dial + phoneNum.replace(/\D/g, "");
-    const { error } = await supabase.auth.verifyOtp({ phone: fullPhone, token: code, type: "sms" });
-    if (error) setError(error.message);
-    else window.location.replace("/dashboard");
+    const { error, data } = await supabase.auth.verifyOtp({ phone: fullPhone, token: code, type: "sms" });
+    if (error) { setError(error.message); setLoading(false); return; }
+    const { data: profile } = await supabase.from("profiles").select("full_name").eq("id", data.user.id).single();
+    window.location.replace(profile?.full_name ? "/dashboard" : "/onboarding");
     setLoading(false);
   }
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row">
-
-      {/* ── LEFT PANEL ── */}
-      <div className="flex-1 flex flex-col justify-center items-center px-6 py-12 bg-white">
-        <div className="w-full max-w-sm">
-
-          {/* Logo */}
-          <Link href="/" className="inline-flex items-center gap-2 mb-10 group">
-            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <span className="text-white text-xs font-black">H</span>
-            </div>
-            <span className="text-sm font-semibold text-neutral-800 group-hover:text-black transition-colors">
-              Houdys
-            </span>
+    <div className="min-h-screen flex flex-col">
+      {/* NAV */}
+      <div className="sticky top-0 z-20 bg-[#f5f4f1]/96 backdrop-blur-md border-b border-[#e0dfdb]/50">
+        <div className="flex items-center justify-start px-5 py-3">
+          <Link href="/" className="font-serif font-bold text-xl text-[#1C1410] tracking-tight hover:opacity-80 transition-opacity">
+            Houdy&apos;s
           </Link>
-
-          <AnimatePresence mode="wait">
-
-            {/* ── MAIN VIEW ── */}
-            {view === "main" && (
-              <motion.div key="main" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.25 }}>
-                <h1 className="text-2xl font-bold text-neutral-900 mb-1">Create your account</h1>
-                <p className="text-neutral-500 text-sm mb-8">Find your next home with Houdys.</p>
-
-                {error && (
-                  <div className="mb-4 px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs">{error}</div>
-                )}
-
-                <div className="space-y-3 mb-6">
-                  <button
-                    onClick={handleGoogle}
-                    disabled={loading}
-                    className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors disabled:opacity-50"
-                  >
-                    <GoogleIcon />
-                    Continue with Google
-                  </button>
-
-                  <button
-                    onClick={() => { setView("phone"); setError(""); }}
-                    className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors"
-                  >
-                    <Phone className="w-5 h-5 text-neutral-500" />
-                    Sign up with Phone
-                  </button>
-                </div>
-
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="flex-1 h-px bg-neutral-200" />
-                  <span className="text-xs text-neutral-400 font-medium">OR</span>
-                  <div className="flex-1 h-px bg-neutral-200" />
-                </div>
-
-                <form onSubmit={handleEmailContinue} className="space-y-3">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter work email"
-                    className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-neutral-400 transition"
-                  />
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-black text-white text-sm font-semibold transition-colors disabled:opacity-50"
-                  >
-                    {loading ? "Sending…" : "Continue"}
-                  </button>
-                </form>
-
-                <p className="mt-5 text-xs text-neutral-400 text-center">
-                  By continuing, you agree to our{" "}
-                  <Link href="#" className="underline hover:text-neutral-600">Terms of Service</Link>{" "}
-                  and{" "}
-                  <Link href="#" className="underline hover:text-neutral-600">Privacy policy</Link>.
-                </p>
-                <p className="mt-4 text-sm text-neutral-500 text-center">
-                  Already have an account?{" "}
-                  <Link href="/signup" className="font-medium text-neutral-900 hover:underline">Sign in</Link>
-                </p>
-              </motion.div>
-            )}
-
-            {/* ── PHONE ENTRY ── */}
-            {view === "phone" && (
-              <motion.div key="phone" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.25 }}>
-                <button onClick={() => { setView("main"); setError(""); }} className="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-800 mb-6 transition-colors">
-                  <ArrowLeft className="w-4 h-4" /> Back
-                </button>
-                <h1 className="text-2xl font-bold text-neutral-900 mb-1">Enter your number</h1>
-                <p className="text-neutral-500 text-sm mb-8">We'll text you a one-time code to verify your number.</p>
-
-                {error && (
-                  <div className="mb-4 px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs">{error}</div>
-                )}
-
-                <form onSubmit={handlePhoneSend} className="space-y-3">
-                  <div className="flex rounded-lg border border-neutral-200 overflow-visible focus-within:ring-2 focus-within:ring-black/10 focus-within:border-neutral-400 transition">
-                    <CountryDropdown selected={country} onChange={setCountry} />
-                    <input
-                      type="tel"
-                      required
-                      value={phoneNum}
-                      onChange={(e) => setPhoneNum(e.target.value.replace(/[^\d\s\-()]/g, ""))}
-                      placeholder="Phone number"
-                      className="flex-1 px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none bg-white rounded-r-lg"
-                    />
+        </div>
+      </div>
+      {/* SPLIT */}
+      <div className="flex-1 flex flex-col lg:flex-row">
+        {/* LEFT */}
+        <div className="flex-1 flex flex-col justify-center items-center px-6 py-12 bg-white">
+          <div className="w-full max-w-sm">
+            <AnimatePresence mode="wait">
+              {view === "main" && (
+                <motion.div key="main" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.25 }}>
+                  <h1 className="text-3xl font-bold text-neutral-900 mb-1">Create your account</h1>
+                  <p className="text-neutral-500 text-sm mb-8">Come see your next home with us.</p>
+                  {error && (
+                    <div className="mb-4 px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs">{error}</div>
+                  )}
+                  <div className="space-y-3 mb-6">
+                    <button onClick={handleGoogle} disabled={loading} className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors disabled:opacity-50">
+                      <GoogleIcon />
+                      Continue with Google
+                    </button>
+                    <button onClick={() => { setView("phone"); setError(""); }} className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-lg border border-neutral-200 text-sm font-medium text-neutral-700 hover:bg-neutral-50 transition-colors">
+                      <Phone className="w-5 h-5 text-neutral-500" />
+                      Sign up with Phone
+                    </button>
                   </div>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-black text-white text-sm font-semibold transition-colors disabled:opacity-50"
-                  >
-                    {loading ? "Sending…" : "Send code"}
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="flex-1 h-px bg-neutral-200" />
+                    <span className="text-xs text-neutral-400 font-medium">OR</span>
+                    <div className="flex-1 h-px bg-neutral-200" />
+                  </div>
+                  <form onSubmit={handleEmailContinue} className="space-y-3">
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter work email"
+                      className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-neutral-400 transition"
+                    />
+                    <button type="submit" disabled={loading} className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-black text-white text-sm font-semibold transition-colors disabled:opacity-50">
+                      {loading ? "Sending..." : "Continue"}
+                    </button>
+                  </form>
+                  <p className="mt-5 text-xs text-neutral-400 text-center">
+                    By continuing, you agree to our{" "}
+                    <Link href="#" className="underline hover:text-neutral-600">Terms of Service</Link>{" "}
+                    and{" "}
+                    <Link href="#" className="underline hover:text-neutral-600">Privacy policy</Link>.
+                  </p>
+                  <p className="mt-4 text-sm text-neutral-500 text-center">
+                    Already have an account?{" "}
+                    <Link href="/signup" className="font-medium text-neutral-900 hover:underline">Sign in</Link>
+                  </p>
+                </motion.div>
+              )}
+              {view === "phone" && (
+                <motion.div key="phone" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.25 }}>
+                  <button onClick={() => { setView("main"); setError(""); }} className="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-800 mb-6 transition-colors">
+                    <ArrowLeft className="w-4 h-4" /> Back
                   </button>
-                </form>
-              </motion.div>
-            )}
-
-            {/* ── PHONE VERIFY ── */}
-            {view === "phone-verify" && (
-              <motion.div key="phone-verify" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.25 }}>
-                <button onClick={() => { setView("phone"); setError(""); }} className="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-800 mb-6 transition-colors">
-                  <ArrowLeft className="w-4 h-4" /> Back
-                </button>
-                <h1 className="text-2xl font-bold text-neutral-900 mb-1">Enter the code</h1>
-                <p className="text-neutral-500 text-sm mb-8">
-                  Sent to <span className="font-medium text-neutral-800">{country.dial} {phoneNum}</span>
-                </p>
-
-                {error && (
-                  <div className="mb-4 px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs">{error}</div>
-                )}
-
-                <form onSubmit={handlePhoneVerify} className="space-y-3">
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={6}
-                    required
-                    value={code}
-                    onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
-                    placeholder="000000"
-                    className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder-neutral-400 tracking-[0.3em] text-center focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-neutral-400 transition"
-                  />
-                  <button
-                    type="submit"
-                    disabled={loading || code.length < 6}
-                    className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-black text-white text-sm font-semibold transition-colors disabled:opacity-50"
-                  >
-                    {loading ? "Verifying…" : "Verify"}
+                  <h1 className="text-2xl font-bold text-neutral-900 mb-1">Enter your number</h1>
+                  <p className="text-neutral-500 text-sm mb-8">We&apos;ll text you a one-time code to verify your number.</p>
+                  {error && (
+                    <div className="mb-4 px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs">{error}</div>
+                  )}
+                  <form onSubmit={handlePhoneSend} className="space-y-3">
+                    <div className="flex rounded-lg border border-neutral-200 overflow-visible focus-within:ring-2 focus-within:ring-black/10 focus-within:border-neutral-400 transition">
+                      <CountryDropdown selected={country} onChange={setCountry} />
+                      <input
+                        type="tel"
+                        required
+                        value={phoneNum}
+                        onChange={(e) => setPhoneNum(e.target.value.replace(/[^\d\s\-()]/g, ""))}
+                        placeholder="Phone number"
+                        className="flex-1 px-4 py-2.5 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none bg-white rounded-r-lg"
+                      />
+                    </div>
+                    <button type="submit" disabled={loading} className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-black text-white text-sm font-semibold transition-colors disabled:opacity-50">
+                      {loading ? "Sending..." : "Send code"}
+                    </button>
+                  </form>
+                </motion.div>
+              )}
+              {view === "phone-verify" && (
+                <motion.div key="phone-verify" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.25 }}>
+                  <button onClick={() => { setView("phone"); setError(""); }} className="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-800 mb-6 transition-colors">
+                    <ArrowLeft className="w-4 h-4" /> Back
                   </button>
-                </form>
-
-                <button
-                  onClick={handlePhoneSend}
-                  className="mt-4 w-full text-sm text-neutral-500 hover:text-neutral-800 transition-colors"
-                >
-                  Resend code
-                </button>
-              </motion.div>
-            )}
-
-            {/* ── EMAIL SENT ── */}
-            {view === "done" && (
-              <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }} className="text-center">
-                <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <h2 className="text-xl font-bold text-neutral-900 mb-2">Check your email</h2>
-                <p className="text-sm text-neutral-500">
-                  We sent a magic link to <span className="font-medium text-neutral-800">{email}</span>
-                </p>
-                <button
-                  onClick={() => { setView("main"); setEmail(""); setError(""); }}
-                  className="mt-6 text-sm text-neutral-500 hover:text-neutral-800 underline"
-                >
-                  Use a different email
-                </button>
-              </motion.div>
-            )}
-
-          </AnimatePresence>
+                  <h1 className="text-2xl font-bold text-neutral-900 mb-1">Enter the code</h1>
+                  <p className="text-neutral-500 text-sm mb-8">
+                    Sent to <span className="font-medium text-neutral-800">{country.dial} {phoneNum}</span>
+                  </p>
+                  {error && (
+                    <div className="mb-4 px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs">{error}</div>
+                  )}
+                  <form onSubmit={handlePhoneVerify} className="space-y-3">
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={6}
+                      required
+                      value={code}
+                      onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+                      placeholder="000000"
+                      className="w-full px-4 py-2.5 rounded-lg border border-neutral-200 text-sm text-neutral-900 placeholder-neutral-400 tracking-[0.3em] text-center focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-neutral-400 transition"
+                    />
+                    <button type="submit" disabled={loading || code.length < 6} className="w-full py-2.5 rounded-lg bg-neutral-800 hover:bg-black text-white text-sm font-semibold transition-colors disabled:opacity-50">
+                      {loading ? "Verifying..." : "Verify"}
+                    </button>
+                  </form>
+                  <button onClick={handlePhoneSend} className="mt-4 w-full text-sm text-neutral-500 hover:text-neutral-800 transition-colors">
+                    Resend code
+                  </button>
+                </motion.div>
+              )}
+              {view === "done" && (
+                <motion.div key="done" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }} className="text-center">
+                  <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h2 className="text-xl font-bold text-neutral-900 mb-2">Check your email</h2>
+                  <p className="text-sm text-neutral-500">
+                    We sent a magic link to <span className="font-medium text-neutral-800">{email}</span>
+                  </p>
+                  <button onClick={() => { setView("main"); setEmail(""); setError(""); }} className="mt-6 text-sm text-neutral-500 hover:text-neutral-800 underline">
+                    Use a different email
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+        {/* RIGHT desktop */}
+        <div className="hidden lg:flex flex-1 relative overflow-hidden bg-[#1C1410] items-center justify-center">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_40%,_rgba(39,190,93,0.12)_0%,_transparent_65%)]" />
+          <div className="absolute top-10 left-10 right-10 z-10">
+            <h2 className="text-[#f5f4f1] text-3xl font-bold leading-tight">
+              Home ownership<br />shouldn&apos;t stop<br />on scrolling.
+            </h2>
+          </div>
+          <div className="relative flex flex-col items-center gap-4 mt-20">
+            <FloatingCard tag="Flea Markets" color="bg-[#27BE5D]" delay={0.1} rotate={-3} translateY={-8} />
+            <FloatingCard tag="Gen Z Voters" color="bg-[#297A46]" delay={0.2} rotate={1} translateY={0} />
+            <FloatingCard tag="Michael Guyer" color="bg-[#4A3728]" delay={0.3} rotate={3} translateY={8} />
+          </div>
+        </div>
+        {/* RIGHT mobile */}
+        <div className="lg:hidden w-full py-10 px-6 bg-[#1C1410] flex flex-col items-center text-center">
+          <h2 className="text-[#f5f4f1] text-xl font-bold mb-1">Home ownership shouldn&apos;t stop on scrolling.</h2>
+          <p className="text-[#f5f4f1]/60 text-sm">Find proper properties with Houdys.</p>
         </div>
       </div>
-
-      {/* ── RIGHT PANEL (desktop) ── */}
-      <div className="hidden lg:flex flex-1 relative overflow-hidden bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 items-center justify-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.15)_0%,_transparent_70%)]" />
-        <div className="absolute top-10 left-10 right-10 z-10">
-          <p className="text-white/60 text-xs font-semibold uppercase tracking-widest mb-2">Houdys</p>
-          <h2 className="text-white text-3xl font-bold leading-tight">Find your<br />next home.</h2>
-        </div>
-        <div className="relative flex flex-col items-center gap-4 mt-20">
-          <FloatingCard tag="Flea" color="bg-orange-500" delay={0.1} rotate={-3} translateY={-8} />
-          <FloatingCard tag="Vote" color="bg-rose-600" delay={0.2} rotate={1} translateY={0} />
-          <FloatingCard tag="Gen Z" color="bg-red-500" delay={0.3} rotate={3} translateY={8} />
-        </div>
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center">
-          <span className="text-white/40 text-xs">Powered by Houdys</span>
-        </div>
-      </div>
-
-      {/* ── RIGHT PANEL (mobile banner) ── */}
-      <div className="lg:hidden w-full py-10 px-6 bg-gradient-to-r from-orange-500 to-rose-600 flex flex-col items-center text-center">
-        <h2 className="text-white text-xl font-bold mb-1">Find your next home.</h2>
-        <p className="text-white/70 text-sm">Browse properties with Houdys.</p>
-      </div>
-
     </div>
   );
 }

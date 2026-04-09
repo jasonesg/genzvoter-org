@@ -5,6 +5,11 @@ export async function middleware(request) {
   const { pathname } = request.nextUrl;
   let supabaseResponse = NextResponse.next({ request });
 
+  // Skip auth check when Supabase env vars are not configured (local dev without credentials)
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
