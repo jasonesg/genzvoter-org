@@ -16,7 +16,7 @@ const PRODUCT_LINKS = [
 
 const RESOURCE_LINKS = [
   { href: "/faq", label: "FAQ" },
-  { href: "/thoughts", label: "News" },
+  { href: "/blog", label: "Blog" },
   { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact Us" },
   { href: "/icp-survey", label: "ICP Survey" },

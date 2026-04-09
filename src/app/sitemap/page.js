@@ -10,7 +10,7 @@ const SECTIONS = [
     links: [
       { href: "/", label: "Home" },
       { href: "/pricing", label: "Pricing" },
-      { href: "/thoughts", label: "News" },
+      { href: "/blog", label: "Blog" },
       { href: "/icp-survey", label: "ICP Survey" },
     ],
   },

@@ -34,8 +34,7 @@ export async function GET(request) {
     return NextResponse.redirect(`${origin}/signup?error=auth`);
   }
 
-  // Returning user with a completed profile → dashboard, otherwise onboarding
-  // Wrapped in try/catch so a missing profiles table never crashes the callback
+  // New users → onboarding, returning users with a profile → dashboard
   let destination = "/onboarding";
   try {
     const { data: profile } = await supabase
@@ -45,7 +44,7 @@ export async function GET(request) {
       .single();
     if (profile?.full_name) destination = "/dashboard";
   } catch (_) {
-    // profiles table missing or query failed — safe fallback to onboarding
+    // profiles table missing or query failed — send to onboarding
   }
 
   // Build the final redirect and attach the session cookies to it
